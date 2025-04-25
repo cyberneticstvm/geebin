@@ -1,0 +1,20 @@
+
+.req::after{
+    content: " *";
+    font-weight: bold;
+    color: red;
+}
+
+form .form-control{
+    border-radius: 0 !important;
+    border: 1px solid #dee2e6 !important;
+    height: 40px !important;
+}
+
+/*.dataTables_filter{
+    text-align: right !important;
+}
+
+.pagination{
+    float: right !important;
+}*/
