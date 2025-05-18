@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -33,5 +34,14 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::post('edit/{id}', 'update')->name('user.update');
         Route::get('delete/{id}', 'destroy')->name('user.delete');
         Route::get('restore/{id}', 'restore')->name('user.restore');
+    });
+    Route::prefix('material')->controller(MaterialController::class)->group(function () {
+        Route::get('/', 'index')->name('material.register');
+        Route::get('create', 'create')->name('material.create');
+        Route::post('create', 'store')->name('material.save');
+        Route::get('edit/{id}', 'edit')->name('material.edit');
+        Route::post('edit/{id}', 'update')->name('material.update');
+        Route::get('delete/{id}', 'destroy')->name('material.delete');
+        Route::get('restore/{id}', 'restore')->name('material.restore');
     });
 });

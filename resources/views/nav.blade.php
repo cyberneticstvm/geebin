@@ -20,14 +20,13 @@
 
                 <!-- Menu: Sub menu ul -->
                 <ul class="sub-menu collapse" id="menu-Authentication">
-                    <li><a class="ms-link" href="{{ route('dashboard') }}">Material Management</a></li>
-                    <li><a class="ms-link" href="{{ route('dashboard') }}">Parts Management</a></li>
-                    <li><a class="ms-link" href="{{ route('dashboard') }}">Supplier Management</a></li>
-                    <li><a class="ms-link" href="{{ route('dashboard') }}">Godown Management</a></li>
-                    <li><a class="ms-link" href="{{ route('dashboard') }}">Mixing Unit </a></li>
+                    <li><a class="ms-link" href="{{ route('material.register') }}">Material Management</a></li>
+                    <li><a class="ms-link" href="{{ route('dashboard') }}">Company Management</a></li>
                 </ul>
             </li>
+            <li><a class="m-link" href="{{ route('dashboard') }}"><i class="fa fa-dollar"></i> <span>Transfer</span></a></li>
             <li><a class="m-link" href="{{ route('dashboard') }}"><i class="fa fa-dollar"></i> <span>Purchase</span></a></li>
+            <li><a class="m-link" href="{{ route('dashboard') }}"><i class="fa fa-archive"></i> <span>Production</span></a></li>
             <li><a class="m-link" href="{{ route('dashboard') }}"><i class="fa fa-gift"></i> <span>Sales</span></a></li>
             <li class="divider mt-4 py-2 border-top"><small>REPORTS</small></li>
             <li><a class="m-link" href="{{ route('dashboard') }}"><i class="fa fa-pie-chart"></i> <span>Reports</span></a></li>
