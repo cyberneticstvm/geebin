@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
+use App\Models\Extra;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -24,7 +26,8 @@ class CompanyController extends Controller implements HasMiddleware
      */
     public function index()
     {
-        //
+        $companies = Company::withTrashed()->orderBy('name')->get();
+        return view('company.index', compact('companies'));
     }
 
     /**
@@ -32,7 +35,8 @@ class CompanyController extends Controller implements HasMiddleware
      */
     public function create()
     {
-        //
+        $types = Extra::where('key', 'ctype')->pluck('value', 'id');
+        return view('company.create', compact('types'));
     }
 
     /**
@@ -40,7 +44,16 @@ class CompanyController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:materials,name',
+            'type_id' => 'required',
+            'mobile' => 'nullable|numeric|digits:10'
+        ]);
+        $input = $request->all();
+        $input['created_by'] = $request->user()->id;
+        $input['updated_by'] = $request->user()->id;
+        Company::create($input);
+        return redirect()->route('company.register')->with("success", "Company created successfully");
     }
 
     /**
@@ -56,7 +69,9 @@ class CompanyController extends Controller implements HasMiddleware
      */
     public function edit(string $id)
     {
-        //
+        $company = Company::findOrFail(decrypt($id));
+        $types = Extra::where('key', 'ctype')->pluck('value', 'id');
+        return view('company.edit', compact('types', 'company'));
     }
 
     /**
@@ -64,7 +79,15 @@ class CompanyController extends Controller implements HasMiddleware
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:materials,name, ' . $id,
+            'type_id' => 'required',
+            'mobile' => 'nullable|numeric|digits:10'
+        ]);
+        $input = $request->all();
+        $input['updated_by'] = $request->user()->id;
+        Company::findOrFail($id)->update($input);
+        return redirect()->route('company.register')->with("success", "Company updated successfully");
     }
 
     /**
@@ -72,6 +95,13 @@ class CompanyController extends Controller implements HasMiddleware
      */
     public function destroy(string $id)
     {
-        //
+        Company::findOrFail(decrypt($id))->delete();
+        return redirect()->route('company.register')->with("success", "Company deleted successfully");
+    }
+
+    public function restore(string $id)
+    {
+        Company::withTrashed()->where('id', decrypt($id))->restore();
+        return redirect()->route('company.register')->with("success", "Company restored successfully");
     }
 }

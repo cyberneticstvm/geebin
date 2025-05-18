@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="mb-3 col-md-2">
                                     <label class="form-label req">Unit</label>
-                                    {{ html()->select($name = 'unit', $value = array('Kilo' => 'Kilo'), NULL)->class('form-control')->placeholder('Select') }}
+                                    {{ html()->select($name = 'unit', $value = array('Kilo' => 'Kilo'), old('unit'))->class('form-control')->placeholder('Select') }}
                                     @error('unit')
                                     <small class="text-danger">{{ $errors->first('unit') }}</small>
                                     @enderror

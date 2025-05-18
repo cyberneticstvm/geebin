@@ -21,7 +21,7 @@
                 <!-- Menu: Sub menu ul -->
                 <ul class="sub-menu collapse" id="menu-Authentication">
                     <li><a class="ms-link" href="{{ route('material.register') }}">Material Management</a></li>
-                    <li><a class="ms-link" href="{{ route('dashboard') }}">Company Management</a></li>
+                    <li><a class="ms-link" href="{{ route('company.register') }}">Company Management</a></li>
                 </ul>
             </li>
             <li><a class="m-link" href="{{ route('dashboard') }}"><i class="fa fa-dollar"></i> <span>Transfer</span></a></li>

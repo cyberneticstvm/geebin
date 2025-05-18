@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label class="form-label req">Role</label>
-                                    {{ html()->select($name = 'roles', $value = $roles, NULL)->class('form-control')->placeholder('Select') }}
+                                    {{ html()->select($name = 'roles', $value = $roles, old('roles'))->class('form-control')->placeholder('Select') }}
                                     @error('roles')
                                     <small class="text-danger">{{ $errors->first('roles') }}</small>
                                     @enderror

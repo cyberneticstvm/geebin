@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -43,5 +44,14 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::post('edit/{id}', 'update')->name('material.update');
         Route::get('delete/{id}', 'destroy')->name('material.delete');
         Route::get('restore/{id}', 'restore')->name('material.restore');
+    });
+    Route::prefix('company')->controller(CompanyController::class)->group(function () {
+        Route::get('/', 'index')->name('company.register');
+        Route::get('create', 'create')->name('company.create');
+        Route::post('create', 'store')->name('company.save');
+        Route::get('edit/{id}', 'edit')->name('company.edit');
+        Route::post('edit/{id}', 'update')->name('company.update');
+        Route::get('delete/{id}', 'destroy')->name('company.delete');
+        Route::get('restore/{id}', 'restore')->name('company.restore');
     });
 });

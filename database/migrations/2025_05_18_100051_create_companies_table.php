@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
             $table->foreign('type_id')->references('id')->on('extras')->onDelete('cascade');
+            $table->unique(['name', 'type_id']);
             $table->timestamps();
             $table->softDeletes();
         });
