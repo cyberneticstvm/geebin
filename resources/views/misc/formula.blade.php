@@ -9,9 +9,6 @@
                         <div class="col-6">
                             <h5 class="m-0">Formula</h5>
                         </div>
-                        <div class="col-6 text-end">
-                            <h5 class="m-0"><a href="{{ route('company.create') }}" class="text-success">Create Company</a></h5>
-                        </div>
                     </div>
                     <div class="card-body">
                         <table id="myTable" class="table display dataTable table-hover" style="width:100%">
