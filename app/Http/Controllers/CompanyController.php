@@ -45,7 +45,7 @@ class CompanyController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:materials,name',
+            'name' => 'required',
             'type_id' => 'required',
             'mobile' => 'nullable|numeric|digits:10'
         ]);
@@ -80,7 +80,7 @@ class CompanyController extends Controller implements HasMiddleware
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => 'required|unique:materials,name, ' . $id,
+            'name' => 'required',
             'type_id' => 'required',
             'mobile' => 'nullable|numeric|digits:10'
         ]);
