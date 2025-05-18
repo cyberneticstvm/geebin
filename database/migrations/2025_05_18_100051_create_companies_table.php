@@ -13,7 +13,16 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->unique();
+            $table->unsignedBigInteger('type_id');
+            $table->string('mobile', 10)->nullable();
+            $table->string('email', 50)->nullable();
+            $table->string('address')->nullable();
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by');
+            $table->foreign('type_id')->references('id')->on('extras')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
