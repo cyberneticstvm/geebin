@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\HelperController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -15,6 +16,9 @@ Route::middleware(['web'])->group(function () {
 });
 
 Route::middleware(['web', 'auth'])->group(function () {
+    Route::prefix('')->controller(HelperController::class)->group(function () {
+        Route::get('formula', 'materialFormula')->name('material.formula');
+    });
     Route::prefix('')->controller(AuthController::class)->group(function () {
         Route::get('dashboard', 'dashboard')->name('dashboard');
         Route::get('logout', 'logout')->name('logout');

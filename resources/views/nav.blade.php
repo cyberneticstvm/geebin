@@ -24,7 +24,8 @@
                     <li><a class="ms-link" href="{{ route('company.register') }}">Company Management</a></li>
                 </ul>
             </li>
-            <li><a class="m-link" href="{{ route('dashboard') }}"><i class="fa fa-dollar"></i> <span>Transfer</span></a></li>
+            <li><a class="m-link" href="{{ route('material.formula') }}"><i class="fa fa-server"></i> <span>Formula</span></a></li>
+            <li><a class="m-link" href="{{ route('dashboard') }}"><i class="fa fa-exchange"></i> <span>Transfer</span></a></li>
             <li><a class="m-link" href="{{ route('dashboard') }}"><i class="fa fa-dollar"></i> <span>Purchase</span></a></li>
             <li><a class="m-link" href="{{ route('dashboard') }}"><i class="fa fa-archive"></i> <span>Production</span></a></li>
             <li><a class="m-link" href="{{ route('dashboard') }}"><i class="fa fa-gift"></i> <span>Sales</span></a></li>
