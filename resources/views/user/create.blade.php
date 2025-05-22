@@ -14,7 +14,7 @@
                         <div class="basic-form">
                             {{ html()->form('POST', route('user.save'))->open() }}
                             <div class="row">
-                                <div class="mb-3 col-md-3">
+                                <div class="mb-3 col-md-5">
                                     <label class="form-label req">Full Name</label>
                                     {{ html()->text('name', old('name'))->class("form-control")->placeholder("Full Name") }}
                                     @error('name')
@@ -40,6 +40,13 @@
                                     {{ html()->select($name = 'roles', $value = $roles, old('roles'))->class('form-control')->placeholder('Select') }}
                                     @error('roles')
                                     <small class="text-danger">{{ $errors->first('roles') }}</small>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label req">Branch</label>
+                                    {{ html()->select($name = 'branches[]', $value = $branches, old('branches'))->class('form-control select2')->multiple() }}
+                                    @error('branches')
+                                    <small class="text-danger">{{ $errors->first('branches') }}</small>
                                     @enderror
                                 </div>
                             </div>

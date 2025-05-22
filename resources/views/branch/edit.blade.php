@@ -12,46 +12,39 @@
                     </div>
                     <div class="card-body">
                         <div class="basic-form">
-                            {{ html()->form('POST', route('company.save'))->open() }}
+                            {{ html()->form('POST', route('branch.update', $branch->id))->open() }}
                             <div class="row">
-                                <div class="mb-3 col-md-3">
-                                    <label class="form-label req">Firm Name</label>
-                                    {{ html()->text('name', old('name'))->class("form-control")->placeholder("Firm Name") }}
+                                <div class="mb-3 col-md-4">
+                                    <label class="form-label req">Branch Name</label>
+                                    {{ html()->text('name', $branch->name)->class("form-control")->placeholder("Branch Name") }}
                                     @error('name')
                                     <small class="text-danger">{{ $errors->first('name') }}</small>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-3">
-                                    <label class="form-label req">Type</label>
-                                    {{ html()->select($name = 'type_id', $types, old('type_id'))->class('form-control')->placeholder('Select') }}
-                                    @error('type_id')
-                                    <small class="text-danger">{{ $errors->first('type_id') }}</small>
-                                    @enderror
-                                </div>
-                                <div class="mb-3 col-md-3">
-                                    <label class="form-label req">Branch</label>
-                                    {{ html()->select($name = 'branch_id', $branches, old('branch_id'))->class('form-control')->placeholder('Select') }}
-                                    @error('branch_id')
-                                    <small class="text-danger">{{ $errors->first('branch_id') }}</small>
+                                <div class="mb-3 col-md-2">
+                                    <label class="form-label req">Branch Code</label>
+                                    {{ html()->text('code', $branch->code)->class("form-control")->maxlength(10)->placeholder("Branch Code") }}
+                                    @error('code')
+                                    <small class="text-danger">{{ $errors->first('code') }}</small>
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-3">
                                     <label class="form-label">Mobile</label>
-                                    {{ html()->text('mobile', old('mobile'))->class("form-control")->maxlength(10)->placeholder("Mobile") }}
+                                    {{ html()->text('mobile', $branch->mobile)->class("form-control")->maxlength(10)->placeholder("Mobile") }}
                                     @error('mobile')
                                     <small class="text-danger">{{ $errors->first('mobile') }}</small>
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-3">
                                     <label class="form-label">Email</label>
-                                    {{ html()->email('email', old('email'))->class("form-control")->placeholder("Email") }}
+                                    {{ html()->email('email', $branch->email)->class("form-control")->placeholder("Email") }}
                                     @error('email')
                                     <small class="text-danger">{{ $errors->first('email') }}</small>
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label">Address</label>
-                                    {{ html()->text('address', old('address'))->class("form-control")->placeholder("Address") }}
+                                    <label class="form-label req">Address</label>
+                                    {{ html()->text('address', $branch->address)->class("form-control")->placeholder("Address") }}
                                     @error('address')
                                     <small class="text-danger">{{ $errors->first('address') }}</small>
                                     @enderror
@@ -60,7 +53,7 @@
                             <div class="row">
                                 <div class="col text-end">
                                     <a onClick="window.history.back()" class="btn btn-secondary">Cancel</a>
-                                    {{ html()->submit("Save Firm")->class("btn btn-submit btn-primary") }}
+                                    {{ html()->submit("Upadte Branch")->class("btn btn-submit btn-primary") }}
                                 </div>
                             </div>
                             {{ html()->form()->close() }}

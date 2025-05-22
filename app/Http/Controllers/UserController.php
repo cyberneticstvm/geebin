@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
 use Illuminate\Http\Request;
 use Exception;
 use App\Models\User;
+use App\Models\UserBranch;
+use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -28,7 +31,8 @@ class UserController extends Controller implements HasMiddleware
     public function index()
     {
         $users = User::withTrashed()->get();
-        return view('user.index', compact('users'));
+        $branches = Branch::all();
+        return view('user.index', compact('users', 'branches'));
     }
 
     /**
@@ -37,7 +41,8 @@ class UserController extends Controller implements HasMiddleware
     public function create()
     {
         $roles = Role::pluck('name', 'name')->all();
-        return view('user.create', compact('roles'));
+        $branches = Branch::pluck('name', 'id');
+        return view('user.create', compact('roles', 'branches'));
     }
 
     /**
@@ -50,14 +55,29 @@ class UserController extends Controller implements HasMiddleware
             'email' => 'required|unique:users,email',
             'password' => 'required|min:6',
             'roles' => 'required',
+            'branches' => 'required',
         ]);
         try {
             $input = $request->except(array('branches', 'roles'));
             $input['password'] = Hash::make($input['password']);
             $input['created_by'] = $request->user()->id;
             $input['updated_by'] = $request->user()->id;
-            $user = User::create($input);
-            $user->assignRole($request->input('roles'));
+            DB::transaction(function () use ($request, $input) {
+                $user = User::create($input);
+                $user->assignRole($request->input('roles'));
+                $data = [];
+                foreach ($request->branches as $key => $item):
+                    $data[] = [
+                        'user_id' => $user->id,
+                        'branch_id' => $item,
+                        'created_by' => $request->user()->id,
+                        'updated_by' => $request->user()->id,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
+                    ];
+                endforeach;
+                UserBranch::insert($data);
+            });
         } catch (Exception $e) {
             return redirect()->back()->with("error", $e->getMessage())->withInput($request->all());
         }
@@ -80,7 +100,8 @@ class UserController extends Controller implements HasMiddleware
         $user = User::findOrFail(decrypt($id));
         $roles = Role::pluck('name', 'name')->all();
         $userRole = $user->roles->pluck('name', 'name')->all();
-        return view('user.edit', compact('user', 'roles', 'userRole'));
+        $branches = Branch::pluck('name', 'id');
+        return view('user.edit', compact('user', 'roles', 'userRole', 'branches'));
     }
 
     /**
@@ -93,6 +114,7 @@ class UserController extends Controller implements HasMiddleware
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
             'roles' => 'required',
+            'branches' => 'required',
         ]);
         try {
             $input = $request->except(array('branches', 'roles'));
@@ -101,11 +123,24 @@ class UserController extends Controller implements HasMiddleware
             } else {
                 $input = Arr::except($input, array('password'));
             }
-
-            $user = User::findOrFail($id);
-            $user->update($input);
-            DB::table('model_has_roles')->where('model_id', $id)->delete();
-            $user->assignRole($request->input('roles'));
+            DB::transaction(function () use ($request, $input, $id) {
+                $user = User::findOrFail($id);
+                $user->update($input);
+                DB::table('model_has_roles')->where('model_id', $id)->delete();
+                $user->assignRole($request->input('roles'));
+                foreach ($request->branches as $key => $item):
+                    $data[] = [
+                        'user_id' => $user->id,
+                        'branch_id' => $item,
+                        'created_by' => $request->user()->id,
+                        'updated_by' => $request->user()->id,
+                        'created_at' => $user->created_at,
+                        'updated_at' => Carbon::now(),
+                    ];
+                endforeach;
+                UserBranch::where('user_id', $user->id)->forceDelete();
+                UserBranch::insert($data);
+            });
         } catch (Exception $e) {
             return redirect()->back()->with("error", $e->getMessage())->withInput($request->all());
         }

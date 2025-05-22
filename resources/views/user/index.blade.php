@@ -21,6 +21,7 @@
                                     <th>User Name</th>
                                     <th>User Email</th>
                                     <th>Role</th>
+                                    <th>Branch</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -32,6 +33,7 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td class="text-start">{{ $user->roles()->pluck('name')->implode(', ') }}</td>
+                                    <td class="text-start">{{ $branches?->WhereIn('id', $user?->branches()?->pluck('branch_id'))->pluck('name')->implode(', ') }}</td>
                                     <td class="text-start">{!! $user->status() !!}</td>
                                     <td class="text-center">
                                         <div class="dropdown">

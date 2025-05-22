@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center bg-transparent border-bottom-0 mt-3">
                         <div class="col-6">
-                            <h5 class="m-0">Update Company</h5>
+                            <h5 class="m-0">Update Firm</h5>
                         </div>
                     </div>
                     <div class="card-body">
@@ -15,8 +15,8 @@
                             {{ html()->form('POST', route('company.update', $company->id))->open() }}
                             <div class="row">
                                 <div class="mb-3 col-md-3">
-                                    <label class="form-label req">Company Name</label>
-                                    {{ html()->text('name', $company->name)->class("form-control")->placeholder("Company Name") }}
+                                    <label class="form-label req">Firm Name</label>
+                                    {{ html()->text('name', $company->name)->class("form-control")->placeholder("Firm Name") }}
                                     @error('name')
                                     <small class="text-danger">{{ $errors->first('name') }}</small>
                                     @enderror
@@ -26,6 +26,13 @@
                                     {{ html()->select($name = 'type_id', $types, $company->type_id)->class('form-control')->placeholder('Select') }}
                                     @error('type_id')
                                     <small class="text-danger">{{ $errors->first('type_id') }}</small>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 col-md-3">
+                                    <label class="form-label req">Branch</label>
+                                    {{ html()->select($name = 'branch_id', $branches, $company->branch_id)->class('form-control')->placeholder('Select') }}
+                                    @error('branch_id')
+                                    <small class="text-danger">{{ $errors->first('branch_id') }}</small>
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-3">
@@ -53,7 +60,7 @@
                             <div class="row">
                                 <div class="col text-end">
                                     <a onClick="window.history.back()" class="btn btn-secondary">Cancel</a>
-                                    {{ html()->submit("Update Company")->class("btn btn-submit btn-primary") }}
+                                    {{ html()->submit("Update Firm")->class("btn btn-submit btn-primary") }}
                                 </div>
                             </div>
                             {{ html()->form()->close() }}

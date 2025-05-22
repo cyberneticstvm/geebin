@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
+use App\Models\UserBranch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -28,7 +31,20 @@ class AuthController extends Controller
 
     function dashboard()
     {
-        return view('dashboard');
+        $branches = Branch::whereIn('id', UserBranch::where('user_id', Auth::id())->pluck('branch_id'))->get();
+        return view('dashboard', compact('branches'));
+    }
+
+    function updateBranch(Request $request)
+    {
+        Session::put('branch', $request->branch);
+        if (Session::has('branch')) :
+            return redirect()->route('dashboard')
+                ->withSuccess('User branch updated successfully!');
+        else :
+            return redirect()->route('dashboard')
+                ->withError('Please update branch!');
+        endif;
     }
 
     function logout(Request $request)

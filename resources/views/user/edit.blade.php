@@ -14,32 +14,39 @@
                         <div class="basic-form">
                             {{ html()->form('POST', route('user.update', encrypt($user->id)))->open() }}
                             <div class="row">
-                                <div class="mb-3 col-md-4">
+                                <div class="mb-3 col-md-5">
                                     <label class="form-label req">Full Name</label>
                                     {{ html()->text('name', $user->name)->class("form-control")->placeholder("Full Name") }}
                                     @error('name')
                                     <small class="text-danger">{{ $errors->first('name') }}</small>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-4">
+                                <div class="mb-3 col-md-2">
                                     <label class="form-label req">Email</label>
                                     {{ html()->email('email', $user->email)->class("form-control")->placeholder("Email") }}
                                     @error('email')
                                     <small class="text-danger">{{ $errors->first('email') }}</small>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-4">
+                                <div class="mb-3 col-md-2">
                                     <label class="form-label req">Password</label>
                                     {{ html()->password('password', '')->class("form-control")->placeholder("******") }}
                                     @error('password')
                                     <small class="text-danger">{{ $errors->first('password') }}</small>
                                     @enderror
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <label class="form-label req">Role</label>
                                     {{ html()->select($name = 'roles', $value = $roles, $userRole)->class('form-control single-select')->placeholder('Select') }}
                                     @error('roles')
                                     <small class="text-danger">{{ $errors->first('roles') }}</small>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label req">Branch</label>
+                                    {{ html()->select($name = 'branches[]', $value = $branches, $user->branches->pluck('branch_id'))->class('form-control select2')->multiple() }}
+                                    @error('branches')
+                                    <small class="text-danger">{{ $errors->first('branches') }}</small>
                                     @enderror
                                 </div>
                             </div>

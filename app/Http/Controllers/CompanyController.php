@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
 use App\Models\Company;
 use App\Models\Extra;
 use Illuminate\Http\Request;
@@ -36,7 +37,8 @@ class CompanyController extends Controller implements HasMiddleware
     public function create()
     {
         $types = Extra::where('key', 'ctype')->pluck('value', 'id');
-        return view('company.create', compact('types'));
+        $branches = Branch::pluck('name', 'id');
+        return view('company.create', compact('types', 'branches'));
     }
 
     /**
@@ -47,13 +49,14 @@ class CompanyController extends Controller implements HasMiddleware
         $request->validate([
             'name' => 'required',
             'type_id' => 'required',
+            'branch_id' => 'required',
             'mobile' => 'nullable|numeric|digits:10'
         ]);
         $input = $request->all();
         $input['created_by'] = $request->user()->id;
         $input['updated_by'] = $request->user()->id;
         Company::create($input);
-        return redirect()->route('company.register')->with("success", "Company created successfully");
+        return redirect()->route('company.register')->with("success", "Firm created successfully");
     }
 
     /**
@@ -71,7 +74,8 @@ class CompanyController extends Controller implements HasMiddleware
     {
         $company = Company::findOrFail(decrypt($id));
         $types = Extra::where('key', 'ctype')->pluck('value', 'id');
-        return view('company.edit', compact('types', 'company'));
+        $branches = Branch::pluck('name', 'id');
+        return view('company.edit', compact('types', 'company', 'branches'));
     }
 
     /**
@@ -82,12 +86,13 @@ class CompanyController extends Controller implements HasMiddleware
         $request->validate([
             'name' => 'required',
             'type_id' => 'required',
+            'branch_id' => 'required',
             'mobile' => 'nullable|numeric|digits:10'
         ]);
         $input = $request->all();
         $input['updated_by'] = $request->user()->id;
         Company::findOrFail($id)->update($input);
-        return redirect()->route('company.register')->with("success", "Company updated successfully");
+        return redirect()->route('company.register')->with("success", "Firm updated successfully");
     }
 
     /**
@@ -96,12 +101,12 @@ class CompanyController extends Controller implements HasMiddleware
     public function destroy(string $id)
     {
         Company::findOrFail(decrypt($id))->delete();
-        return redirect()->route('company.register')->with("success", "Company deleted successfully");
+        return redirect()->route('company.register')->with("success", "Firm deleted successfully");
     }
 
     public function restore(string $id)
     {
         Company::withTrashed()->where('id', decrypt($id))->restore();
-        return redirect()->route('company.register')->with("success", "Company restored successfully");
+        return redirect()->route('company.register')->with("success", "Firm restored successfully");
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\MaterialController;
@@ -21,6 +22,7 @@ Route::middleware(['web', 'auth'])->group(function () {
     });
     Route::prefix('')->controller(AuthController::class)->group(function () {
         Route::get('dashboard', 'dashboard')->name('dashboard');
+        Route::post('branch/update', 'updateBranch')->name('user.branch.update');
         Route::get('logout', 'logout')->name('logout');
     });
     Route::prefix('role')->controller(RoleController::class)->group(function () {
@@ -57,5 +59,15 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::post('edit/{id}', 'update')->name('company.update');
         Route::get('delete/{id}', 'destroy')->name('company.delete');
         Route::get('restore/{id}', 'restore')->name('company.restore');
+    });
+
+    Route::prefix('branch')->controller(BranchController::class)->group(function () {
+        Route::get('/', 'index')->name('branch.register');
+        Route::get('create', 'create')->name('branch.create');
+        Route::post('create', 'store')->name('branch.save');
+        Route::get('edit/{id}', 'edit')->name('branch.edit');
+        Route::post('edit/{id}', 'update')->name('branch.update');
+        Route::get('delete/{id}', 'destroy')->name('branch.delete');
+        Route::get('restore/{id}', 'restore')->name('branch.restore');
     });
 });

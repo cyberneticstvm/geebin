@@ -20,8 +20,9 @@
 
                 <!-- Menu: Sub menu ul -->
                 <ul class="sub-menu collapse" id="menu-Authentication">
+                    <li><a class="ms-link" href="{{ route('branch.register') }}">Branch Management</a></li>
+                    <li><a class="ms-link" href="{{ route('company.register') }}">Firm Management</a></li>
                     <li><a class="ms-link" href="{{ route('material.register') }}">Material Management</a></li>
-                    <li><a class="ms-link" href="{{ route('company.register') }}">Company Management</a></li>
                 </ul>
             </li>
             <li><a class="m-link" href="{{ route('material.formula') }}"><i class="fa fa-server"></i> <span>Formula</span></a></li>

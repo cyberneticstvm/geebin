@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return ($this->deleted_at) ? "<span class='badge bg-danger'>Deleted</span>" : "<span class='badge bg-success'>Active</span>";
     }
+
+    public function branches()
+    {
+        return $this->hasMany(UserBranch::class, 'user_id', 'id');
+    }
 }
