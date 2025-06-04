@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col mb-5">
                 @if(Session::has('branch'))
-                <span>Hello <span class="text-primary"> {{ Auth::user()->name }}</span>, You are now logged into <span class="text-primary">{{ $branches?->where('id', Session::get('branch'))?->first()?->name }}</span> branch!</span>
+                <span>Hello <span class="text-primary"> {{ Auth::user()->name }}</span>, You are now logged into <span class="text-primary">{{ Session::get('bname') }}</span> branch!</span>
                 @endif
             </div>
         </div>

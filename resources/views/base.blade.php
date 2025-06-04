@@ -85,7 +85,7 @@
                                         </div>
                                     </div>
                                     <div class="list-group m-2">
-                                        <a href="#" class="list-group-item list-group-item-action border-0"><i class="w30 fa fa-user"></i>Profile &amp; account</a>
+                                        <a href="#" class="list-group-item list-group-item-action border-0">Branch:<span class="text-primary"> {{ Session::get('bname') }}</span></a>
                                     </div>
                                 </div>
                             </div>

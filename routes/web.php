@@ -5,6 +5,7 @@ use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +19,7 @@ Route::middleware(['web'])->group(function () {
 
 Route::middleware(['web', 'auth'])->group(function () {
     Route::prefix('')->controller(HelperController::class)->group(function () {
-        Route::get('formula', 'materialFormula')->name('material.formula');
+        Route::get('formula', 'materialFormula')->name('formula');
     });
     Route::prefix('')->controller(AuthController::class)->group(function () {
         Route::get('dashboard', 'dashboard')->name('dashboard');
@@ -69,5 +70,15 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::post('edit/{id}', 'update')->name('branch.update');
         Route::get('delete/{id}', 'destroy')->name('branch.delete');
         Route::get('restore/{id}', 'restore')->name('branch.restore');
+    });
+
+    Route::prefix('purchase')->controller(PurchaseController::class)->group(function () {
+        Route::get('/', 'index')->name('purchase.register');
+        Route::get('create', 'create')->name('purchase.create');
+        Route::post('create', 'store')->name('purchase.save');
+        Route::get('edit/{id}', 'edit')->name('purchase.edit');
+        Route::post('edit/{id}', 'update')->name('purchase.update');
+        Route::get('delete/{id}', 'destroy')->name('purchase.delete');
+        Route::get('restore/{id}', 'restore')->name('purchase.restore');
     });
 });
