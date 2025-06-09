@@ -12,7 +12,7 @@
                     </div>
                     <div class="card-body">
                         <div class="basic-form">
-                            {{ html()->form('POST', route('transfer.update', [$transfer->item, $transfer->id]))->open() }}
+                            {{ html()->form('POST', route('transfer.update', [$transfer->item, $transfer->id]))->attribute('id', 'frmTransfer')->open() }}
                             <div class="row">
                                 <div class="mb-3 col-md-2">
                                     <label class="form-label req">Transfer Date</label>
@@ -62,7 +62,7 @@
                             <div class="row">
                                 <div class="col text-end">
                                     <a onClick="window.history.back()" class="btn btn-secondary">Cancel</a>
-                                    {{ html()->submit("Update Transfer")->class("btn btn-submit btn-primary") }}
+                                    {{ html()->submit("Update Transfer")->attribute('onClick', "return checkInventory('frmTransfer', '$item', 'update')")->class("btn btn-submit btn-primary") }}
                                 </div>
                             </div>
                             {{ html()->form()->close() }}

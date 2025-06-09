@@ -109,4 +109,28 @@
             }
         })
     });
+
+    function checkInventory(frm, item, action) {
+        var formData = $('#' + frm).serialize();
+        formData += "&item=" + item + "&ap=" + action
+        $.ajax({
+            type: 'POST',
+            url: '/ajax/validate/inventory',
+            data: formData,
+            dataType: "json",
+            success: function(response) {
+                if (response.status == 'error') {
+                    failed({
+                        'error': "Qty exceeds"
+                    })
+                } else {
+                    $("#" + frm).submit();
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR)
+            }
+        });
+        return false;
+    }
 </script>

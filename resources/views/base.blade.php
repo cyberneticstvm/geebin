@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="keyword" content="">
     <title>:: GEEBIN ::</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon"> <!-- Favicon-->
 
     <!-- project css file  -->
     <link rel="stylesheet" href="{{ asset('/assets/css/al.style.min.css') }}">

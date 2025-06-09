@@ -127,7 +127,8 @@ class TransferController extends Controller implements HasMiddleware
         $fromCompany = $this->fromCompany;
         $toCompany = $this->toCompany;
         $products = $this->products;
-        return view('transfer.edit', compact('transfer', 'fromCompany', 'toCompany', 'products'));
+        $item = $transfer->item;
+        return view('transfer.edit', compact('transfer', 'fromCompany', 'toCompany', 'products', 'item'));
     }
 
     /**
