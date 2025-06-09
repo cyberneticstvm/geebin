@@ -110,9 +110,9 @@
         })
     });
 
-    function checkInventory(frm, item, action) {
+    function checkInventory(frm, item) {
         var formData = $('#' + frm).serialize();
-        formData += "&item=" + item + "&ap=" + action
+        formData += "&item=" + item
         $.ajax({
             type: 'POST',
             url: '/ajax/validate/inventory',

@@ -62,7 +62,7 @@
                             <div class="row">
                                 <div class="col text-end">
                                     <a onClick="window.history.back()" class="btn btn-secondary">Cancel</a>
-                                    {{ html()->submit("Save Transfer")->attribute('onClick', "return checkInventory('frmTransfer', '$item', 'create')")->class("btn btn-submit btn-primary") }}
+                                    {{ html()->submit("Save Transfer")->attribute('onClick', "return checkInventory('frmTransfer', '$item')")->class("btn btn-submit btn-primary") }}
                                 </div>
                             </div>
                             {{ html()->form()->close() }}
