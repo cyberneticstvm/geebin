@@ -26,16 +26,16 @@ class TransferController extends Controller implements HasMiddleware
         $type = $request->route()->parameters['item'];
         $this->products = Material::where('type', $type)->pluck('name', 'id');
         if ($type == 'material'):
-            $this->fromCompany = Company::where('branch_id', Session::get('branch'))->where('type_id', 5)->pluck('name', 'id');
-            $this->toCompany = Company::where('branch_id', Session::get('branch'))->where('type_id', 5)->pluck('name', 'id');
+            $this->fromCompany = Company::where('branch_id', Session::get('branch'))->where('type_id', 2)->pluck('name', 'id');
+            $this->toCompany = Company::where('branch_id', Session::get('branch'))->where('type_id', 2)->pluck('name', 'id');
         endif;
         if ($type == 'parts'):
-            $this->fromCompany = Company::where('branch_id', Session::get('branch'))->where('type_id', 5)->pluck('name', 'id');
-            $this->toCompany = Company::where('branch_id', Session::get('branch'))->where('type_id', 15)->pluck('name', 'id');
+            $this->fromCompany = Company::where('branch_id', Session::get('branch'))->where('type_id', 2)->pluck('name', 'id');
+            $this->toCompany = Company::where('branch_id', Session::get('branch'))->where('type_id', 3)->pluck('name', 'id');
         endif;
         if ($type == 'product'):
-            $this->fromCompany = Company::where('branch_id', Session::get('branch'))->where('type_id', 15)->pluck('name', 'id');
-            $this->toCompany = Company::where('branch_id', Session::get('branch'))->where('type_id', 6)->pluck('name', 'id');
+            $this->fromCompany = Company::where('branch_id', Session::get('branch'))->where('type_id', 3)->pluck('name', 'id');
+            $this->toCompany = Company::where('branch_id', Session::get('branch'))->where('type_id', 4)->pluck('name', 'id');
         endif;
     }
 

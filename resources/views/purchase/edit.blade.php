@@ -23,14 +23,14 @@
                                 </div>
                                 <div class="mb-3 col-md-2">
                                     <label class="form-label req">Supplier</label>
-                                    {{ html()->select($name = 'supplier_id', $companies->where('type_id', 4)->pluck('name', 'id'), $purchase->supplier_id)->class('form-control')->placeholder('Select') }}
+                                    {{ html()->select($name = 'supplier_id', $companies->where('type_id', 1)->pluck('name', 'id'), $purchase->supplier_id)->class('form-control')->placeholder('Select') }}
                                     @error('supplier_id')
                                     <small class="text-danger">{{ $errors->first('supplier_id') }}</small>
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-2">
                                     <label class="form-label req">Firm / Company</label>
-                                    {{ html()->select($name = 'company_id', $companies->where('type_id', 5)->pluck('name', 'id'), $purchase->company_id)->class('form-control')->placeholder('Select') }}
+                                    {{ html()->select($name = 'company_id', $companies->where('type_id', 2)->pluck('name', 'id'), $purchase->company_id)->class('form-control')->placeholder('Select') }}
                                     @error('company_id')
                                     <small class="text-danger">{{ $errors->first('company_id') }}</small>
                                     @enderror
