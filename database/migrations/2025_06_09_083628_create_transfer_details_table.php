@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('transfer_id');
             $table->foreign('transfer_id')->references('id')->on('transfers')->onDelete('cascade');
-            $table->string('item', 25)->nullable();
+            $table->unsignedBigInteger('item')->nullable();
             $table->decimal('qty', 7, 2)->default(0);
             $table->timestamps();
             $table->softDeletes();
