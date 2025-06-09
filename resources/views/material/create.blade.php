@@ -22,8 +22,15 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-2">
+                                    <label class="form-label req">Type</label>
+                                    {{ html()->select($name = 'type', $value = array('material' => 'Material', 'parts' => 'Parts', 'product' => 'Product'), old('type'))->class('form-control')->placeholder('Select') }}
+                                    @error('type')
+                                    <small class="text-danger">{{ $errors->first('type') }}</small>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 col-md-2">
                                     <label class="form-label req">Unit</label>
-                                    {{ html()->select($name = 'unit', $value = array('Kilo' => 'Kilo'), old('unit'))->class('form-control')->placeholder('Select') }}
+                                    {{ html()->select($name = 'unit', $value = array('Kilo' => 'Kilo', 'Number' => 'Number'), old('unit'))->class('form-control')->placeholder('Select') }}
                                     @error('unit')
                                     <small class="text-danger">{{ $errors->first('unit') }}</small>
                                     @enderror

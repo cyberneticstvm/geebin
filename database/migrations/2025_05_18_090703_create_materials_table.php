@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->enum('unit', ['Kilo'])->nullable();
+            $table->enum('unit', ['Kilo', 'Number'])->nullable();
             $table->decimal('cost_per_unit', 8, 2)->default(0);
+            $table->enum('type', ['material', 'parts', 'product'])->nullable();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
             $table->timestamps();

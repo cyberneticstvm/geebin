@@ -21,7 +21,7 @@ class PurchaseController extends Controller implements HasMiddleware
     public function __construct()
     {
         $this->companies = Company::where('branch_id', Session::get('branch'))->get();
-        $this->materials = Material::all();
+        $this->materials = Material::where('type', 'material')->get();
     }
 
     public static function middleware(): array

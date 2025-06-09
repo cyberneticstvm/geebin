@@ -25,7 +25,7 @@ class MaterialController extends Controller implements HasMiddleware
      */
     public function index()
     {
-        $materials = Material::withTrashed()->orderBy('name')->get();
+        $materials = Material::withTrashed()->where('type', 'material')->orderBy('name')->get();
         return view('material.index', compact('materials'));
     }
 
@@ -45,6 +45,7 @@ class MaterialController extends Controller implements HasMiddleware
         $request->validate([
             'name' => 'required|unique:materials,name',
             'unit' => 'required',
+            'type' => 'required',
             'cost_per_unit' => 'required',
         ]);
         $input = $request->all();
@@ -79,6 +80,7 @@ class MaterialController extends Controller implements HasMiddleware
         $request->validate([
             'name' => 'required|unique:materials,name,' . $id,
             'unit' => 'required',
+            'type' => 'required',
             'cost_per_unit' => 'required',
         ]);
         $input = $request->all();

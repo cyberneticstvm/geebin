@@ -19,6 +19,7 @@
                                 <tr>
                                     <th>SL No.</th>
                                     <th>Material Name</th>
+                                    <th>Material Type</th>
                                     <th>Unit</th>
                                     <th>Cost per Unit</th>
                                     <th>Status</th>
@@ -31,6 +32,7 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $material->name }}</td>
+                                    <td>{{ ucfirst($material->type) }}</td>
                                     <td>{{ $material->unit }}</td>
                                     <td>{{ $material->cost_per_unit }}</td>
                                     <td class="text-start">{!! $material->status() !!}</td>
