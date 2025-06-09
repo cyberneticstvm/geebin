@@ -7,6 +7,7 @@ use App\Http\Controllers\HelperController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TransferController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,7 @@ Route::middleware(['web'])->group(function () {
 Route::middleware(['web', 'auth'])->group(function () {
     Route::prefix('')->controller(HelperController::class)->group(function () {
         Route::get('formula', 'materialFormula')->name('formula');
+        Route::get('/transfer/pending/approval', 'pendingTransferRegister')->name('transfer.pending.approval.register');
     });
     Route::prefix('')->controller(AuthController::class)->group(function () {
         Route::get('dashboard', 'dashboard')->name('dashboard');
@@ -80,5 +82,15 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::post('edit/{id}', 'update')->name('purchase.update');
         Route::get('delete/{id}', 'destroy')->name('purchase.delete');
         Route::get('restore/{id}', 'restore')->name('purchase.restore');
+    });
+
+    Route::prefix('transfer')->controller(TransferController::class)->group(function () {
+        Route::get('{item}', 'index')->name('transfer.register');
+        Route::get('create/{item}', 'create')->name('transfer.create');
+        Route::post('create/{item}', 'store')->name('transfer.save');
+        Route::get('edit/{item}/{id}', 'edit')->name('transfer.edit');
+        Route::post('edit/{item}/{id}', 'update')->name('transfer.update');
+        Route::get('delete/{item}/{id}', 'destroy')->name('transfer.delete');
+        Route::get('restore/{item}/{id}', 'restore')->name('transfer.restore');
     });
 });

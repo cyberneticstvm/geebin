@@ -2,14 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Formula;
+use App\Models\Transfer;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Session;
 
-class HelperController extends Controller
+class HelperController extends Controller implements HasMiddleware
 {
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('pending-transfer-list'), only: ['pendingTransferRegister']),
+        ];
+    }
+
     function materialFormula()
     {
         $formula = Formula::all();
         return view('misc.formula', compact('formula'));
+    }
+
+    public function pendingTransferRegister()
+    {
+        $transfers = Transfer::whereIn('to_company_id', Company::where('branch_id', Session::get('branch'))->pluck('id'))->where('approved_status', 'pending')->latest()->get();
+        return view('transfer.pending', compact('transfers'));
     }
 }

@@ -26,10 +26,25 @@
                 </ul>
             </li>
             <li><a class="m-link {{ Route::is('formula') ? 'active' : '' }}" href="{{ route('formula') }}"><i class="fa fa-server"></i> <span>Formula</span></a></li>
+
             <li><a class="m-link {{ Route::is('purchase.*') ? 'active' : '' }}" href="{{ route('purchase.register') }}"><i class="fa fa-dollar"></i> <span>Purchase</span></a></li>
-            <li><a class="m-link {{ Route::is('transfer.*') ? 'active' : '' }}" href="{{ route('dashboard') }}"><i class="fa fa-exchange"></i> <span>Transfer</span></a></li>
+
+            <li class="collapsed">
+                <a class="m-link {{ Route::is('transfer.*') ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-Authentication" href="#"><i class="fa fa-exchange"></i> <span>Transfer</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
+
+                <!-- Menu: Sub menu ul -->
+                <ul class="sub-menu collapse" id="menu-Authentication">
+                    <li><a class="ms-link" href="{{ route('transfer.register', 'material') }}">Material</a></li>
+                    <li><a class="ms-link" href="{{ route('transfer.register', 'parts') }}">Parts</a></li>
+                    <li><a class="ms-link" href="{{ route('transfer.register', 'product') }}">Bin / Product</a></li>
+                    <li><a class="ms-link {{ Route::is('transfer.pending.approval.register') ? 'active' : '' }}" href="{{ route('transfer.pending.approval.register') }}">Pending Approval</a></li>
+                </ul>
+            </li>
+
             <li><a class="m-link {{ Route::is('production.*') ? 'active' : '' }}" href="{{ route('dashboard') }}"><i class="fa fa-archive"></i> <span>Production</span></a></li>
+
             <li><a class="m-link {{ Route::is('sales.*') ? 'active' : '' }}" href="{{ route('dashboard') }}"><i class="fa fa-gift"></i> <span>Sales</span></a></li>
+
             <li class="divider mt-4 py-2 border-top"><small>REPORTS</small></li>
             <li><a class="m-link {{ Route::is('reports.*') ? 'active' : '' }}" href="{{ route('dashboard') }}"><i class="fa fa-pie-chart"></i> <span>Reports</span></a></li>
         </ul>
