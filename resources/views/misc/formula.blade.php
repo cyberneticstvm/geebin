@@ -27,8 +27,8 @@
                                 @forelse($formula as $key => $item)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $item->bin_name }}</td>
-                                    <td>{{ $item->part_name }}</td>
+                                    <td>{{ $item->product?->name }}</td>
+                                    <td>{{ $item->parts?->name }}</td>
                                     <td>{{ $item->ppcp }}</td>
                                     <td>{{ $item->color }}</td>
                                     <td>{{ $item->material }}</td>
