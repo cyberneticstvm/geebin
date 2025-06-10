@@ -2,23 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Material;
 use Illuminate\Http\Request;
 
 class AjaxController extends Controller
 {
     function validateInventory(Request $request)
     {
-        $stock = getInventory($request->item, $request->items[0], $request->from_company_id);
-        $availableQty = $stock->sum('purchasedQty');
-        if ($availableQty > $request->qty[0]):
+        $flag = true;
+        $msg = "";
+        foreach ($request->items as $key => $item):
+            $material = Material::find($item);
+            $stock = getInventory($request->item, $item, $request->from_company_id);
+            $availableQty = $stock->sum('balanceQty');
+            if ($availableQty < $request->qty[$key]):
+                $flag = false;
+                $msg .= "Available Qty for {$material->name} is $availableQty <br/>";
+            endif;
+        endforeach;
+        if ($flag):
             return response()->json([
-                "stock" => $stock,
                 "status" => 'success',
+                "stock" => $stock,
             ]);
         else:
             return response()->json([
                 "stock" => $stock,
-                "status" => 'error'
+                "status" => 'error',
+                "message" => $msg
             ]);
         endif;
     }

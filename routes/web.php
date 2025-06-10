@@ -6,6 +6,7 @@ use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\ProductionController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TransferController;
@@ -26,6 +27,7 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::prefix('')->controller(HelperController::class)->group(function () {
         Route::get('formula', 'materialFormula')->name('formula');
         Route::get('/transfer/pending/approval', 'pendingTransferRegister')->name('transfer.pending.approval.register');
+        Route::post('/transfer/pending/approval', 'pendingTransferStatusUpdate')->name('transfer.pending.status.update');
     });
     Route::prefix('')->controller(AuthController::class)->group(function () {
         Route::get('dashboard', 'dashboard')->name('dashboard');
@@ -96,5 +98,15 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::post('edit/{item}/{id}', 'update')->name('transfer.update');
         Route::get('delete/{item}/{id}', 'destroy')->name('transfer.delete');
         Route::get('restore/{item}/{id}', 'restore')->name('transfer.restore');
+    });
+
+    Route::prefix('production')->controller(ProductionController::class)->group(function () {
+        Route::get('', 'index')->name('production.register');
+        Route::get('create', 'create')->name('production.create');
+        Route::post('create', 'store')->name('production.save');
+        Route::get('edit/{id}', 'edit')->name('production.edit');
+        Route::post('edit/{id}', 'update')->name('production.update');
+        Route::get('delete/{id}', 'destroy')->name('production.delete');
+        Route::get('restore/{id}', 'restore')->name('production.restore');
     });
 });

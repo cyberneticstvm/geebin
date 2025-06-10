@@ -63,6 +63,9 @@ class TransferController extends Controller implements HasMiddleware
      */
     public function create($item)
     {
+        if (Transfer::where('approved_status', 'pending')->where('branch_id', Session::get('branch'))->exists()) {
+            return redirect()->back()->with("error", "Some pending transfers are yet to be approved");
+        }
         $fromCompany = $this->fromCompany;
         $toCompany = $this->toCompany;
         $products = $this->products;
@@ -123,7 +126,7 @@ class TransferController extends Controller implements HasMiddleware
      */
     public function edit(string $item, string $id)
     {
-        $transfer = Transfer::findOrFail(decrypt($id));
+        $transfer = Transfer::whereNot('approved_status', 'approved')->where('id', decrypt($id))->firstOrFail();
         $fromCompany = $this->fromCompany;
         $toCompany = $this->toCompany;
         $products = $this->products;
@@ -177,7 +180,7 @@ class TransferController extends Controller implements HasMiddleware
      */
     public function destroy(string $item, string $id)
     {
-        $transfer = Transfer::findOrFail(decrypt($id));
+        $transfer = Transfer::whereNot('approved_status', 'approved')->where('id', decrypt($id))->firstOrFail();
         $transfer->delete();
         TransferDetail::where('transfer_id', decrypt($id))->whereNull('deleted_at')->delete();
         return redirect()->route('transfer.register', $item)->with("success", "Transfer deleted successfully");

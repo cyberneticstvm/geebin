@@ -41,7 +41,7 @@
                 </ul>
             </li>
 
-            <li><a class="m-link {{ Route::is('production.*') ? 'active' : '' }}" href="{{ route('dashboard') }}"><i class="fa fa-archive"></i> <span>Production</span></a></li>
+            <li><a class="m-link {{ Route::is('production.*') ? 'active' : '' }}" href="{{ route('production.register') }}"><i class="fa fa-archive"></i> <span>Production</span></a></li>
 
             <li><a class="m-link {{ Route::is('sales.*') ? 'active' : '' }}" href="{{ route('dashboard') }}"><i class="fa fa-gift"></i> <span>Sales</span></a></li>
 

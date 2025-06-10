@@ -23,7 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
             return response()->view('error', ['exception' => $e]);
         });
         $exceptions->renderable(function (NotFoundHttpException $e) {
-            return redirect()->back()->with('error', 'Requested record not found / deleted!');
+            return redirect()->back()->with('error', 'Requested record not found / deleted / approved!');
         });
         $exceptions->renderable(function (ErrorException $e) {
             return response()->view('error', ['exception' => $e]);

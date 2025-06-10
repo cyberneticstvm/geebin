@@ -31,4 +31,14 @@ class HelperController extends Controller implements HasMiddleware
         $transfers = Transfer::whereIn('to_company_id', Company::where('branch_id', Session::get('branch'))->pluck('id'))->where('approved_status', 'pending')->latest()->get();
         return view('transfer.pending', compact('transfers'));
     }
+
+    public function pendingTransferStatusUpdate(Request $request)
+    {
+        Transfer::findOrFail($request->transferId)->update([
+            'approved_status' => $request->status,
+            'approved_by' => $request->user()->id,
+            'remarks' => $request->remarks,
+        ]);
+        return redirect()->back()->with("success", "Transfer status updated successfully");
+    }
 }

@@ -121,11 +121,12 @@
             success: function(response) {
                 if (response.status == 'error') {
                     failed({
-                        'error': "Qty exceeds"
+                        'error': response.message
                     })
                 } else {
-                    $("#" + frm).submit();
+                    //$("#" + frm).submit();
                 }
+                console.log(response.stock);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR)
