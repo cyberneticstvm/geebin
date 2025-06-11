@@ -23,11 +23,12 @@ Route::middleware(['web'])->group(function () {
 Route::middleware(['web', 'auth'])->group(function () {
     Route::prefix('ajax')->controller(AjaxController::class)->group(function () {
         Route::post('validate/inventory', 'validateInventory')->name('validate.inventory');
+        Route::get('production/output', 'getProductionOutput')->name('get.production.output');
     });
     Route::prefix('')->controller(HelperController::class)->group(function () {
         Route::get('formula', 'materialFormula')->name('formula');
-        Route::get('/transfer/pending/approval', 'pendingTransferRegister')->name('transfer.pending.approval.register');
-        Route::post('/transfer/pending/approval', 'pendingTransferStatusUpdate')->name('transfer.pending.status.update');
+        Route::get('transfer/pending/approval', 'pendingTransferRegister')->name('transfer.pending.approval.register');
+        Route::post('transfer/pending/approval', 'pendingTransferStatusUpdate')->name('transfer.pending.status.update');
         Route::post('production/ouput/update', 'updateProductionOutput')->name('production.output.update');
     });
     Route::prefix('')->controller(AuthController::class)->group(function () {

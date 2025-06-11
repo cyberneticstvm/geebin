@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Material;
+use App\Models\ProductionDetails;
 use Illuminate\Http\Request;
 
 class AjaxController extends Controller
@@ -32,5 +33,14 @@ class AjaxController extends Controller
                 "message" => $msg
             ]);
         endif;
+    }
+
+    function getProductionOutput(Request $request)
+    {
+        $products = ProductionDetails::leftJoin('materials as m', 'm.id', 'production_details.material_id')->selectRaw("m.id, m.name, production_details.qty")->where('production_id', $request->pid)->where('production_details.type', 'in')->whereNull('production_details.deleted_at')->orderBy('material_id')->get();
+        return response()->json([
+            "status" => 'success',
+            "data" => $products,
+        ]);
     }
 }

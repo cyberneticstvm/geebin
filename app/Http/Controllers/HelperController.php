@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\Formula;
+use App\Models\Material;
+use App\Models\ProductionDetails;
 use App\Models\Transfer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -17,6 +20,7 @@ class HelperController extends Controller implements HasMiddleware
     {
         return [
             new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('pending-transfer-list'), only: ['pendingTransferRegister']),
+            new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('update-production-output'), only: ['updateProductionOutput']),
         ];
     }
 
@@ -44,6 +48,28 @@ class HelperController extends Controller implements HasMiddleware
 
     public function updateProductionOutput(Request $request)
     {
-        //
+        $input = $request->all();
+        if ($request->type == 'parts'):
+            $products = Material::whereIn('type', ['parts', 'material'])->orderBy('id')->get();
+        endif;
+        if ($request->type == 'mixing'):
+            $m = Material::whereIn('type', ['liquid']);
+            $products = $m->union(Material::where('id', '18'))->get();
+        endif;
+        ProductionDetails::where('production_id', $request->productionId)->where('type', 'in')->forceDelete();
+        foreach ($products as $key => $item):
+            $name = str_replace(' ', '_', strtolower($item->name));
+            ProductionDetails::create([
+                'production_id' => $request->productionId,
+                'material_id' => $item->id,
+                'qty' => $input[$name],
+                'type' => 'in',
+                'created_by' => $request->user()->id,
+                'updated_by' => $request->user()->id,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        endforeach;
+        return redirect()->back()->with("success", "Production output updated successfully");
     }
 }

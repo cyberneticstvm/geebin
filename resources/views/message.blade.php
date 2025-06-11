@@ -134,4 +134,11 @@
         });*/
         return true;
     }
+
+    function validateFormula(frm, type) {
+        failed({
+            'error': "Hello"
+        });
+        return true;
+    }
 </script>

@@ -29,7 +29,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            @forelse($production->details as $key => $item)
+                            @forelse($production->details->where('type', 'out') as $key => $item)
                             <div class="row">
                                 <div class="mb-3 col-md-2">
                                     <label class="form-label req">Material</label>

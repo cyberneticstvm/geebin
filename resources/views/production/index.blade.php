@@ -37,15 +37,15 @@
                                     <td>{{ $pro->date->format('d.M.Y') }}</td>
                                     <td>{{ $pro->company?->name }}</td>
                                     <td>
-                                        {{ $materials->whereIn('id', $pro->details->pluck('material_id'))->pluck('name')->implode(' | ') }}<br />
-                                        {{ $pro->details->pluck('qty')->implode(' | ') }}
+                                        {{ $materials->whereIn('id', $pro->details->where('type', 'out')->pluck('material_id'))->pluck('name')->implode(' | ') }}<br />
+                                        {{ $pro->details->where('type', 'out')->pluck('qty')->implode(' | ') }}
                                     </td>
                                     <td>{{ ucfirst($pro->type) }}</td>
                                     <td class="text-start">{!! $pro->status() !!}</td>
                                     @if($pro->type == 'parts')
-                                    <td><a href="#" data-bs-toggle="modal" data-bs-target="#partsModal" data-modal="partsModal" data-pid="{{ $pro->id }}" data-type="{{ $pro->type }}" class="myModal">Update</a></td>
+                                    <td><a href="#" data-bs-toggle="modal" data-bs-target="#partsModal" data-modal="partsModal" data-pid="{{ $pro->id }}" data-type="{{ $pro->type }}" class="myPdctModal">Update</a></td>
                                     @else
-                                    <td><a href="#" data-bs-toggle="modal" data-bs-target="#mixingModal" data-modal="mixingModal" data-pid="{{ $pro->id }}" data-type="{{ $pro->type }}" class="myModal">Update</a></td>
+                                    <td><a href="#" data-bs-toggle="modal" data-bs-target="#mixingModal" data-modal="mixingModal" data-pid="{{ $pro->id }}" data-type="{{ $pro->type }}" class="myPdctModal">Update</a></td>
                                     @endif
                                     <td class="text-center"><a href="{{ route('production.edit', ['type' => $pro->type, 'id' => encrypt($pro->id)]) }}"><i class="fa fa-pencil text-warning"></i></a></td>
                                     @if($pro->deleted_at)
@@ -73,12 +73,30 @@
             </div>
             <div class="modal-body custom_scroll">
                 <div class="basic-form">
-                    {{ html()->form('POST', route('production.output.update'))->open() }}
+                    {{ html()->form('POST', route('production.output.update'))->attribute('id', 'frmProductionParts')->open() }}
                     <input type="hidden" name="productionId" id="productionId" value="" />
                     <input type="hidden" name="type" value="parts" />
                     <div class="row">
+                        @forelse($products as $key => $item)
+                        <div class="col-3">
+                            <label class="form-label">{{ $item->name }}</label>
+                            {{ html()->text(str_replace(' ', '_', strtolower($item->name)))->class('form-control')->placeholder('0') }}
+                        </div>
+                        @empty
+                        @endforelse
+                    </div>
+                    <div class="row mt-3">
+                        @forelse($materials as $key => $item)
+                        <div class="col-3">
+                            <label class="form-label">Waste {{ $item->name }}</label>
+                            {{ html()->text(str_replace(' ', '_', strtolower($item->name)))->class('form-control')->placeholder('0') }}
+                        </div>
+                        @empty
+                        @endforelse
+                    </div>
+                    <div class="row mt-3">
                         <div class="col text-end">
-                            {{ html()->submit("Update")->class("btn btn-submit btn-primary") }}
+                            {{ html()->submit("Update")->attribute('onClick', "return validateFormula('frmProductionParts', 'parts')")->class("btn btn-submit btn-primary") }}
                         </div>
                     </div>
                     {{ html()->form()->close() }}
@@ -96,12 +114,21 @@
             </div>
             <div class="modal-body custom_scroll">
                 <div class="basic-form">
-                    {{ html()->form('POST', route('production.output.update'))->open() }}
+                    {{ html()->form('POST', route('production.output.update'))->attribute('id', 'frmProductionMixing')->open() }}
                     <input type="hidden" name="productionId" id="productionId" value="" />
                     <input type="hidden" name="type" value="mixing" />
+                    <div class="row mt-3">
+                        @forelse($materials as $key => $item)
+                        <div class="col-3">
+                            <label class="form-label">{{ $item->name }}</label>
+                            {{ html()->text(str_replace(' ', '_', strtolower($item->name)))->class('form-control')->placeholder('0') }}
+                        </div>
+                        @empty
+                        @endforelse
+                    </div>
                     <div class="row">
                         <div class="col text-end">
-                            {{ html()->submit("Update")->class("btn btn-submit btn-primary") }}
+                            {{ html()->submit("Update")->attribute('onClick', "return validateFormula('frmProductionMixing', 'mixing')")->class("btn btn-submit btn-primary") }}
                         </div>
                     </div>
                     {{ html()->form()->close() }}
