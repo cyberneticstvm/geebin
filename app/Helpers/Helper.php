@@ -11,6 +11,11 @@ function uniqueId($model, $column)
     return $code;
 }
 
+function defaultProductId()
+{
+    return 18;
+}
+
 function materialTypes()
 {
     return array('material' => 'material', 'parts' => 'parts', 'product' => 'product', 'powder' => 'powder', 'liquid' => 'liquid', 'bag' => 'bag', 'cocopeat' => 'cocopeat');

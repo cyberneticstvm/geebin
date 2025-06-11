@@ -54,7 +54,7 @@ class HelperController extends Controller implements HasMiddleware
         endif;
         if ($request->type == 'mixing'):
             $m = Material::whereIn('type', ['liquid']);
-            $products = $m->union(Material::where('id', '18'))->get();
+            $products = $m->union(Material::where('id', defaultProductId()))->get();
         endif;
         ProductionDetails::where('production_id', $request->productionId)->where('type', 'in')->forceDelete();
         foreach ($products as $key => $item):

@@ -24,7 +24,7 @@ class ProductionController extends Controller implements HasMiddleware
             $this->materials = Material::where('type', 'material')->get();
         else:
             $m = Material::whereIn('type', ['liquid']);
-            $this->materials = $m->union(Material::where('id', '18'))->get();
+            $this->materials = $m->union(Material::where('id', defaultProductId()))->get();
         endif;
         $this->company = Company::where('branch_id', Session::get('branch'))->where('type_id', 2)->pluck('name', 'id');
     }
