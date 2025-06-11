@@ -110,8 +110,8 @@
         })
     });
 
-    function checkInventory(frm, item) {
-        var formData = $('#' + frm).serialize();
+    function checkInventory(frm, item = null) {
+        /*var formData = $('#' + frm).serialize();
         formData += "&item=" + item
         $.ajax({
             type: 'POST',
@@ -131,7 +131,7 @@
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR)
             }
-        });
-        return false;
+        });*/
+        return true;
     }
 </script>

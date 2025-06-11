@@ -25,7 +25,7 @@ class MaterialController extends Controller implements HasMiddleware
      */
     public function index()
     {
-        $materials = Material::withTrashed()->where('type', 'material')->orderBy('name')->get();
+        $materials = Material::withTrashed()->orderBy('name')->get();
         return view('material.index', compact('materials'));
     }
 

@@ -28,6 +28,7 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::get('formula', 'materialFormula')->name('formula');
         Route::get('/transfer/pending/approval', 'pendingTransferRegister')->name('transfer.pending.approval.register');
         Route::post('/transfer/pending/approval', 'pendingTransferStatusUpdate')->name('transfer.pending.status.update');
+        Route::post('production/ouput/update', 'updateProductionOutput')->name('production.output.update');
     });
     Route::prefix('')->controller(AuthController::class)->group(function () {
         Route::get('dashboard', 'dashboard')->name('dashboard');
@@ -101,12 +102,12 @@ Route::middleware(['web', 'auth'])->group(function () {
     });
 
     Route::prefix('production')->controller(ProductionController::class)->group(function () {
-        Route::get('', 'index')->name('production.register');
-        Route::get('create', 'create')->name('production.create');
-        Route::post('create', 'store')->name('production.save');
-        Route::get('edit/{id}', 'edit')->name('production.edit');
-        Route::post('edit/{id}', 'update')->name('production.update');
-        Route::get('delete/{id}', 'destroy')->name('production.delete');
-        Route::get('restore/{id}', 'restore')->name('production.restore');
+        Route::get('{type}', 'index')->name('production.register');
+        Route::get('create/{type}', 'create')->name('production.create');
+        Route::post('create/{type}', 'store')->name('production.save');
+        Route::get('edit/{type}/{id}', 'edit')->name('production.edit');
+        Route::post('edit/{type}/{id}', 'update')->name('production.update');
+        Route::get('delete/{type}/{id}', 'destroy')->name('production.delete');
+        Route::get('restore/{type}/{id}', 'restore')->name('production.restore');
     });
 });

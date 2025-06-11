@@ -41,4 +41,9 @@ class HelperController extends Controller implements HasMiddleware
         ]);
         return redirect()->back()->with("success", "Transfer status updated successfully");
     }
+
+    public function updateProductionOutput(Request $request)
+    {
+        //
+    }
 }

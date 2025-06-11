@@ -22,4 +22,9 @@ class Production extends Model
     {
         return $this->belongsTo(Company::class, 'company_id', 'id');
     }
+
+    public function details()
+    {
+        return $this->hasMany(ProductionDetails::class, 'production_id', 'id');
+    }
 }

@@ -36,12 +36,22 @@
                 <ul class="sub-menu collapse" id="menu-Authentication">
                     <li><a class="ms-link" href="{{ route('transfer.register', 'material') }}">Material</a></li>
                     <li><a class="ms-link" href="{{ route('transfer.register', 'parts') }}">Parts</a></li>
+                    <li><a class="ms-link" href="{{ route('transfer.register', 'powder') }}">Powder</a></li>
+                    <li><a class="ms-link" href="{{ route('transfer.register', 'bag') }}">Bag</a></li>
                     <li><a class="ms-link" href="{{ route('transfer.register', 'product') }}">Bin / Product</a></li>
                     <li><a class="ms-link {{ Route::is('transfer.pending.approval.register') ? 'active' : '' }}" href="{{ route('transfer.pending.approval.register') }}">Pending Approval</a></li>
                 </ul>
             </li>
 
-            <li><a class="m-link {{ Route::is('production.*') ? 'active' : '' }}" href="{{ route('production.register') }}"><i class="fa fa-archive"></i> <span>Production</span></a></li>
+            <li class="collapsed">
+                <a class="m-link {{ Route::is('production.*') ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-Authentication" href="#"><i class="fa fa-archive"></i> <span>Production</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
+
+                <!-- Menu: Sub menu ul -->
+                <ul class="sub-menu collapse" id="menu-Authentication">
+                    <li><a class="ms-link" href="{{ route('production.register','parts') }}">Production (Parts)</a></li>
+                    <li><a class="ms-link" href="{{ route('production.register', 'mixing') }}">Mixing (Powder & Liquid)</a></li>
+                </ul>
+            </li>
 
             <li><a class="m-link {{ Route::is('sales.*') ? 'active' : '' }}" href="{{ route('dashboard') }}"><i class="fa fa-gift"></i> <span>Sales</span></a></li>
 

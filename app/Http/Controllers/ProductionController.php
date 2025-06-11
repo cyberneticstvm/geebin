@@ -5,17 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\Material;
 use App\Models\Production;
+use App\Models\ProductionDetails;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\DB;
 
 class ProductionController extends Controller implements HasMiddleware
 {
     protected $materials, $company;
     public function __construct(Request $request)
     {
-        $this->materials = Material::where('type', 'material')->get();
+        $type = $request->route()->parameters['type'];
+        if ($type == 'parts'):
+            $this->materials = Material::where('type', 'material')->get();
+        else:
+            $m = Material::whereIn('type', ['liquid']);
+            $this->materials = $m->union(Material::where('id', '18'))->get();
+        endif;
         $this->company = Company::where('branch_id', Session::get('branch'))->where('type_id', 2)->pluck('name', 'id');
     }
 
@@ -32,28 +42,59 @@ class ProductionController extends Controller implements HasMiddleware
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($type)
     {
-        $productions = Production::withTrashed()->where('branch_id', Session::get('branch'))->latest()->get();
-        return view('production.index', compact('productions'));
+        $materials = $this->materials;
+        $productions = Production::withTrashed()->where('type', $type)->where('branch_id', Session::get('branch'))->latest()->get();
+        return view('production.index', compact('productions', 'materials', 'type'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($type)
     {
         $materials = $this->materials;
         $companies = $this->company;
-        return view('production.create', compact('materials', 'companies'));
+        return view('production.create', compact('materials', 'companies', 'type'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, string $type)
     {
-        //
+        $request->validate([
+            'date' => 'required|date',
+            'from_company_id' => 'required',
+        ]);
+        try {
+            DB::transaction(function () use ($request, $type) {
+                $input = $request->except(array('items', 'qty', 'from_company_id'));
+                $input['created_by'] = $request->user()->id;
+                $input['updated_by'] = $request->user()->id;
+                $input['branch_id'] = Session::get('branch');
+                $input['type'] = $type;
+                $input['company_id'] = $request->from_company_id;
+                $production = Production::create($input);
+                $data = [];
+                foreach ($request->items as $key => $item):
+                    if ($request->qty[$key] > 0):
+                        $data[] = [
+                            'production_id' => $production->id,
+                            'material_id' => $item,
+                            'qty' => $request->qty[$key],
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
+                        ];
+                    endif;
+                endforeach;
+                ProductionDetails::insert($data);
+            });
+        } catch (Exception $e) {
+            return redirect()->back()->with("error", $e->getMessage())->withInput($request->all());
+        }
+        return redirect()->route('production.register', $type)->with("success", "Production created successfully");
     }
 
     /**
@@ -67,24 +108,68 @@ class ProductionController extends Controller implements HasMiddleware
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $type, string $id)
     {
-        //
+        $production = Production::findOrFail(decrypt($id));
+        $materials = $this->materials;
+        $companies = $this->company;
+        return view('production.edit', compact('production', 'materials', 'companies', 'type'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $type, string $id)
     {
-        //
+        $request->validate([
+            'date' => 'required|date',
+            'from_company_id' => 'required',
+        ]);
+        try {
+            $production = Production::findOrFail($id);
+            DB::transaction(function () use ($request, $production) {
+                $input = $request->except(array('items', 'qty', 'from_company_id'));
+                $input['updated_by'] = $request->user()->id;
+                $input['branch_id'] = Session::get('branch');
+                $input['company_id'] = $request->from_company_id;
+                $production->update($input);
+                $data = [];
+                foreach ($request->items as $key => $item):
+                    if ($request->qty[$key] > 0):
+                        $data[] = [
+                            'production_id' => $production->id,
+                            'material_id' => $item,
+                            'qty' => $request->qty[$key],
+                            'created_at' => $production->created_at,
+                            'updated_at' => Carbon::now(),
+                        ];
+                    endif;
+                endforeach;
+                ProductionDetails::where('production_id', $production->id)->delete();
+                ProductionDetails::insert($data);
+            });
+        } catch (Exception $e) {
+            return redirect()->back()->with("error", $e->getMessage())->withInput($request->all());
+        }
+        return redirect()->route('production.register', $type)->with("success", "Production updated successfully");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $type, string $id)
     {
-        //
+        $production = Production::where('id', decrypt($id))->firstOrFail();
+        $production->delete();
+        ProductionDetails::where('production_id', decrypt($id))->whereNull('deleted_at')->delete();
+        return redirect()->route('production.register', $type)->with("success", "Production deleted successfully");
+    }
+
+    public function restore(string $type, string $id)
+    {
+        $production = Production::withTrashed()->where('id', decrypt($id))->first();
+        ProductionDetails::withTrashed()->where('production_id', decrypt($id))->where('deleted_at', $production->deleted_at)->restore();
+        $production->restore();
+        return redirect()->route('production.register', $type)->with("success", "Production restored successfully");
     }
 }
