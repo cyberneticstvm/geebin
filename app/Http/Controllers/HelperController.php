@@ -62,7 +62,7 @@ class HelperController extends Controller implements HasMiddleware
             ProductionDetails::create([
                 'production_id' => $request->productionId,
                 'material_id' => $item->id,
-                'qty' => $input[$name],
+                'qty' => $input[$name] ?? 0,
                 'type' => 'in',
                 'created_by' => $request->user()->id,
                 'updated_by' => $request->user()->id,
