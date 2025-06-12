@@ -110,8 +110,8 @@
         })
     });
 
-    function checkInventory(frm, item = null) {
-        /*var formData = $('#' + frm).serialize();
+    function checkInventory(frm, item) {
+        var formData = $('#' + frm).serialize();
         formData += "&item=" + item
         $.ajax({
             type: 'POST',
@@ -124,21 +124,40 @@
                         'error': response.message
                     })
                 } else {
-                    //$("#" + frm).submit();
+                    $("#" + frm).submit();
                 }
-                console.log(response.stock);
+                //console.log(response.stock);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR)
             }
-        });*/
-        return true;
+        });
+        return false;
     }
 
     function validateFormula(frm, type) {
-        failed({
-            'error': "Hello"
+        var formData = $('#' + frm).serialize();
+        formData += "&type=" + type
+        $.ajax({
+            type: 'POST',
+            url: '/ajax/validate/formula',
+            data: formData,
+            dataType: "json",
+            beforeSend: function() {
+                $(".msg").html("Validating...<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>")
+            },
+            success: function(response) {
+                if (response.status == 'error') {
+                    $(".msg").html(response.message);
+                } else {
+                    $(".msg").html("");
+                    $("#" + frm).submit();
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR)
+            }
         });
-        return true;
+        return false;
     }
 </script>

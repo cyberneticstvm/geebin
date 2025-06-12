@@ -37,15 +37,17 @@
                                     <td>{{ $pro->date->format('d.M.Y') }}</td>
                                     <td>{{ $pro->company?->name }}</td>
                                     <td>
-                                        {{ $materials->whereIn('id', $pro->details->where('type', 'out')->pluck('material_id'))->pluck('name')->implode(' | ') }}<br />
-                                        {{ $pro->details->where('type', 'out')->pluck('qty')->implode(' | ') }}
+                                        {{ $materials->whereIn('id', $pro->details->where('type', ($pro->type == 'bin') ? 'in' : 'out')->pluck('material_id'))->pluck('name')->implode(' | ') }}<br />
+                                        {{ $pro->details->where('type', ($pro->type == 'bin') ? 'in' : 'out')->pluck('qty')->implode(' | ') }}
                                     </td>
                                     <td>{{ ucfirst($pro->type) }}</td>
                                     <td class="text-start">{!! $pro->status() !!}</td>
                                     @if($pro->type == 'parts')
                                     <td><a href="#" data-bs-toggle="modal" data-bs-target="#partsModal" data-modal="partsModal" data-pid="{{ $pro->id }}" data-type="{{ $pro->type }}" class="myPdctModal">Update</a></td>
-                                    @else
+                                    @elseif($pro->type == 'mixing')
                                     <td><a href="#" data-bs-toggle="modal" data-bs-target="#mixingModal" data-modal="mixingModal" data-pid="{{ $pro->id }}" data-type="{{ $pro->type }}" class="myPdctModal">Update</a></td>
+                                    @else
+                                    <td></td>
                                     @endif
                                     <td class="text-center"><a href="{{ route('production.edit', ['type' => $pro->type, 'id' => encrypt($pro->id)]) }}"><i class="fa fa-pencil text-warning"></i></a></td>
                                     @if($pro->deleted_at)
@@ -95,6 +97,11 @@
                         @endforelse
                     </div>
                     <div class="row mt-3">
+                        <div class="col-md-12 text-danger msg">
+
+                        </div>
+                    </div>
+                    <div class="row mt-3">
                         <div class="col text-end">
                             {{ html()->submit("Update")->attribute('onClick', "return validateFormula('frmProductionParts', 'parts')")->class("btn btn-submit btn-primary") }}
                         </div>
@@ -118,13 +125,18 @@
                     <input type="hidden" name="productionId" id="productionId" value="" />
                     <input type="hidden" name="type" value="mixing" />
                     <div class="row mt-3">
-                        @forelse($materials as $key => $item)
+                        @forelse($productsm as $key => $item)
                         <div class="col-3">
                             <label class="form-label">{{ $item->name }}</label>
                             {{ html()->text(str_replace(' ', '_', strtolower($item->name)))->class('form-control')->placeholder('0') }}
                         </div>
                         @empty
                         @endforelse
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12 text-danger msg">
+
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col text-end">

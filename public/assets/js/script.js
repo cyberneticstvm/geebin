@@ -31,7 +31,7 @@ $(function(){
                 url: '/ajax/production/output',
                 data: {'pid': pid },
                 success: function (res) {
-                    if(res){
+                    if(res){                        
                         res.data.forEach(element => {
                         let name = element['name'].replace(' ', '_').toLowerCase();
                         $('input[name="'+name+'"]').val(element['qty'])

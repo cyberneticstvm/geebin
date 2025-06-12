@@ -32,7 +32,7 @@
                             @forelse($production->details->where('type', 'out') as $key => $item)
                             <div class="row">
                                 <div class="mb-3 col-md-2">
-                                    <label class="form-label req">Material</label>
+                                    <label class="form-label req">Material / Product</label>
                                     {{ html()->select('items[]', $materials->where('id', $item->material_id)->pluck('name', 'id'), $item->material_id)->class('form-control') }}
                                     @error('items')
                                     <small class="text-danger">{{ $errors->first('items') }}</small>
@@ -51,7 +51,7 @@
                             <div class="row">
                                 <div class="col text-end">
                                     <a onClick="window.history.back()" class="btn btn-secondary">Cancel</a>
-                                    {{ html()->submit("Update Production")->attribute('onClick', "return checkInventory('frmProduction')")->class("btn btn-submit btn-primary") }}
+                                    {{ html()->submit("Update Production")->attribute('onClick', "return checkInventory('frmProduction', '$type')")->class("btn btn-submit btn-primary") }}
                                 </div>
                             </div>
                             {{ html()->form()->close() }}

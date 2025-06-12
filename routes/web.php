@@ -24,6 +24,7 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::prefix('ajax')->controller(AjaxController::class)->group(function () {
         Route::post('validate/inventory', 'validateInventory')->name('validate.inventory');
         Route::get('production/output', 'getProductionOutput')->name('get.production.output');
+        Route::post('validate/formula', 'validateFormula')->name('validate.formula');
     });
     Route::prefix('')->controller(HelperController::class)->group(function () {
         Route::get('formula', 'materialFormula')->name('formula');

@@ -22,11 +22,13 @@ class ProductionController extends Controller implements HasMiddleware
         $type = $request->route()->parameters['type'];
         if ($type == 'parts'):
             $this->materials = Material::where('type', 'material')->get();
-        else:
+        elseif ($type == 'mixing'):
             $m = Material::whereIn('type', ['liquid']);
             $this->materials = $m->union(Material::where('id', defaultProductId()))->get();
+        else:
+            $this->materials = Material::where('type', 'bin')->get();
         endif;
-        $this->company = Company::where('branch_id', Session::get('branch'))->where('type_id', 2)->pluck('name', 'id');
+        $this->company = Company::where('branch_id', Session::get('branch'))->where('type_id', ($type == 'bin') ? 3 : 2)->pluck('name', 'id');
     }
 
     public static function middleware(): array
@@ -46,8 +48,9 @@ class ProductionController extends Controller implements HasMiddleware
     {
         $materials = $this->materials;
         $products = Material::where('type', 'parts')->orderBy('id')->get();
+        $productsm = Material::where('type', 'cocopeat')->orderBy('id')->get();
         $productions = Production::withTrashed()->where('type', $type)->where('branch_id', Session::get('branch'))->latest()->get();
-        return view('production.index', compact('productions', 'materials', 'products', 'type'));
+        return view('production.index', compact('productions', 'materials', 'products', 'productsm', 'type'));
     }
 
     /**
@@ -85,7 +88,7 @@ class ProductionController extends Controller implements HasMiddleware
                             'production_id' => $production->id,
                             'material_id' => $item,
                             'qty' => $request->qty[$key],
-                            'type' => 'out',
+                            'type' => ($type == 'bin') ? 'in' : 'out',
                             'created_by' => $request->user()->id,
                             'updated_by' => $request->user()->id,
                             'created_at' => Carbon::now(),
@@ -139,7 +142,7 @@ class ProductionController extends Controller implements HasMiddleware
         ]);
         try {
             $production = Production::findOrFail($id);
-            DB::transaction(function () use ($request, $production) {
+            DB::transaction(function () use ($request, $production, $type) {
                 $input = $request->except(array('items', 'qty', 'from_company_id'));
                 $input['updated_by'] = $request->user()->id;
                 $input['branch_id'] = Session::get('branch');
@@ -152,7 +155,7 @@ class ProductionController extends Controller implements HasMiddleware
                             'production_id' => $production->id,
                             'material_id' => $item,
                             'qty' => $request->qty[$key],
-                            'type' => 'out',
+                            'type' => ($type == 'bin') ? 'in' : 'out',
                             'created_by' => $request->user()->id,
                             'updated_by' => $request->user()->id,
                             'created_at' => $production->created_at,

@@ -49,6 +49,7 @@ class MaterialController extends Controller implements HasMiddleware
             'cost_per_unit' => 'required',
         ]);
         $input = $request->all();
+        $input['name'] = str_replace(' ', '-', $request->name);
         $input['created_by'] = $request->user()->id;
         $input['updated_by'] = $request->user()->id;
         Material::create($input);
@@ -84,6 +85,7 @@ class MaterialController extends Controller implements HasMiddleware
             'cost_per_unit' => 'required',
         ]);
         $input = $request->all();
+        $input['name'] = str_replace(' ', '-', $request->name);
         $input['updated_by'] = $request->user()->id;
         Material::findOrFail($id)->update($input);
         return redirect()->route('material.register')->with("success", "Material updated successfully");
