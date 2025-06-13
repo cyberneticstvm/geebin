@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Formula;
 use App\Models\Material;
-use App\Models\Production;
 use App\Models\ProductionDetails;
 use Illuminate\Http\Request;
 

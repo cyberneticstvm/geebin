@@ -14,13 +14,11 @@ function uniqueId($model, $column)
 function decomFormula()
 {
     return array('powder1' => 0.40, 'powder2' => 0.40, 'cocopeat' => 0.92, 'qty' => 1);
-    // 0.65 kg powder + 0.35 kg cocopeat = 1kg decom
 }
 
 function mixingFormula()
 {
     return array('liquid' => 0.01, 'powder' => 0.07, 'cocopeat' => 0.92, 'qty' => 1);
-    // 0.65 kg powder + 0.35 kg cocopeat = 1kg decom
 }
 
 function defaultProductIds()
