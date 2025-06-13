@@ -77,7 +77,7 @@
                 <div class="basic-form">
                     {{ html()->form('POST', route('production.output.update'))->attribute('id', 'frmProductionParts')->open() }}
                     <input type="hidden" name="productionId" id="productionId" value="" />
-                    <input type="hidden" name="type" value="parts" />
+                    <input type="hidden" name="type" value="{{ $type }}" />
                     <div class="row">
                         @forelse($products as $key => $item)
                         <div class="col-3">
@@ -123,7 +123,7 @@
                 <div class="basic-form">
                     {{ html()->form('POST', route('production.output.update'))->attribute('id', 'frmProductionMixing')->open() }}
                     <input type="hidden" name="productionId" id="productionId" value="" />
-                    <input type="hidden" name="type" value="mixing" />
+                    <input type="hidden" name="type" value="{{ $type }}" />
                     <div class="row mt-3">
                         @forelse($productsm as $key => $item)
                         <div class="col-3">

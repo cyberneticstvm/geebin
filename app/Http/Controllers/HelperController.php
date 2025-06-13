@@ -52,7 +52,7 @@ class HelperController extends Controller implements HasMiddleware
         if ($request->type == 'parts'):
             $products = Material::whereIn('type', ['parts', 'material'])->orderBy('id')->get();
         endif;
-        if ($request->type == 'mixing'):
+        if ($request->type == 'mixing' || $request->type == 'decom'):
             $products = Material::where('type', 'decom')->orderBy('id')->get();
         endif;
         ProductionDetails::where('production_id', $request->productionId)->where('type', 'in')->forceDelete();
