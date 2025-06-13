@@ -11,14 +11,26 @@ function uniqueId($model, $column)
     return $code;
 }
 
-function defaultProductId()
+function decomFormula()
 {
-    return 18;
+    return array('powder' => 0.08, 'cocopeat' => 0.92, 'qty' => 1);
+    // 0.65 kg powder + 0.35 kg cocopeat = 1kg decom
+}
+
+function mixingFormula()
+{
+    return array('liquid' => 0.01, 'powder' => 0.07, 'cocopeat' => 0.92, 'qty' => 1);
+    // 0.65 kg powder + 0.35 kg cocopeat = 1kg decom
+}
+
+function defaultProductIds()
+{
+    return array('ppcp' => 1, 'color' => 2, 'liquid' => 15, 'mixing_powder' => 18, '3kg_decom' => 19, '5kg_decom' => 20);
 }
 
 function materialTypes()
 {
-    return array('material' => 'material', 'parts' => 'parts', 'bin' => 'bin', 'powder' => 'powder', 'liquid' => 'liquid', 'bag' => 'bag', 'cocopeat' => 'cocopeat');
+    return array('material' => 'material', 'parts' => 'parts', 'bin' => 'bin', 'powder' => 'powder', 'liquid' => 'liquid', 'bag' => 'bag', 'decom' => 'decom');
 }
 
 function getInventory($item, $item_id, $company)

@@ -63,7 +63,7 @@ class AjaxController extends Controller
 
     function validateFormula(Request $request)
     {
-        $type = $request->type;
+        $type = $request->type; // parts / mixing / decom
         $input = $request->all();
         if ($type == 'parts'):
             $ppcp_took = 0;
@@ -85,11 +85,11 @@ class AjaxController extends Controller
             foreach ($production as $key => $item):
                 $name = str_replace(' ', '_', strtolower($item->material->name));
                 $qty = $input[$name] ?? 0;
-                if ($item->material_id == 1):
+                if ($item->material_id == defaultProductIds()['ppcp']):
                     $ppcp_took = $item->qty;
                     $ppcp_tot += $qty;
                 endif;
-                if ($item->material_id == 2):
+                if ($item->material_id == defaultProductIds()['color']):
                     $color_took = $item->qty;
                     $color_tot += $qty;
                 endif;
@@ -103,6 +103,39 @@ class AjaxController extends Controller
                 return response()->json([
                     "status" => 'success',
                     "message" => "Okay!",
+                ]);
+            endif;
+        else:
+            $msg = "";
+            $flag = true;
+            $qty = 0;
+            $products = Material::whereIn('type', ['decom'])->orderBy('id')->pluck('name');
+            $production = ProductionDetails::where('production_id', $request->productionId)->where('type', 'out')->get();
+            $expected_qty = 0;
+            foreach ($production as $key => $prod):
+                $name = str_replace(' ', '_', strtolower($products[$key]));
+                $qty += $input[$name] ?? 0;
+                if ($prod->production->type == 'mixing'):
+                    $formula = mixingFormula();
+                    $expected_qty += ($prod->material->id == defaultProductIds()['mixing_powder']) ? $prod->qty / $formula['powder'] : 0;
+                else:
+                    $formula = decomFormula();
+                    $expected_qty += $prod->qty / $formula['powder'];
+                endif;
+            endforeach;
+            if (number_format($expected_qty, 2) != number_format($qty, 2)):
+                $flag = false;
+                $msg = "Mismatch!<br/> Expected total Qty is " . number_format($expected_qty, 2) . "<br/>But provided total Qty is " . number_format($qty, 2);
+            endif;
+            if ($flag):
+                return response()->json([
+                    "status" => 'success',
+                    "message" => "Okay!",
+                ]);
+            else:
+                return response()->json([
+                    "status" => 'error',
+                    "message" => $msg,
                 ]);
             endif;
         endif;

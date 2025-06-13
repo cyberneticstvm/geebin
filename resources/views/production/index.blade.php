@@ -44,7 +44,7 @@
                                     <td class="text-start">{!! $pro->status() !!}</td>
                                     @if($pro->type == 'parts')
                                     <td><a href="#" data-bs-toggle="modal" data-bs-target="#partsModal" data-modal="partsModal" data-pid="{{ $pro->id }}" data-type="{{ $pro->type }}" class="myPdctModal">Update</a></td>
-                                    @elseif($pro->type == 'mixing')
+                                    @elseif($pro->type == 'mixing' || $pro->type == 'decom')
                                     <td><a href="#" data-bs-toggle="modal" data-bs-target="#mixingModal" data-modal="mixingModal" data-pid="{{ $pro->id }}" data-type="{{ $pro->type }}" class="myPdctModal">Update</a></td>
                                     @else
                                     <td></td>
@@ -70,7 +70,7 @@
     <div class="modal-dialog modal-lg modal-dialog-vertical modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Production Output Update (Parts) - <span class="productionId"></span></h5>
+                <h5 class="modal-title">Production Output Update ({{ ucfirst($type) }}) - <span class="productionId"></span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body custom_scroll">
@@ -116,7 +116,7 @@
     <div class="modal-dialog modal-lg modal-dialog-vertical modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Production Output Update (Mixing) - <span class="productionId"></span></h5>
+                <h5 class="modal-title">Production Output Update ({{ ucfirst($type) }}) - <span class="productionId"></span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body custom_scroll">

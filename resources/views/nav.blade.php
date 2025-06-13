@@ -36,7 +36,7 @@
                 <ul class="sub-menu collapse" id="menu-Authentication">
                     <li><a class="ms-link" href="{{ route('transfer.register', 'material') }}">Material</a></li>
                     <li><a class="ms-link" href="{{ route('transfer.register', 'parts') }}">Parts</a></li>
-                    <li><a class="ms-link" href="{{ route('transfer.register', 'powder') }}">Powder</a></li>
+                    <!--<li><a class="ms-link" href="{{ route('transfer.register', 'powder') }}">Powder</a></li>-->
                     <li><a class="ms-link" href="{{ route('transfer.register', 'bag') }}">Bag</a></li>
                     <li><a class="ms-link" href="{{ route('transfer.register', 'bin') }}">Bin / Product</a></li>
                     <li><a class="ms-link {{ Route::is('transfer.pending.approval.register') ? 'active' : '' }}" href="{{ route('transfer.pending.approval.register') }}">Pending Approval</a></li>
@@ -50,7 +50,8 @@
                 <ul class="sub-menu collapse" id="menu-Authentication">
                     <li><a class="ms-link" href="{{ route('production.register','parts') }}">Production (Parts)</a></li>
                     <li><a class="ms-link" href="{{ route('production.register', 'mixing') }}">Mixing (Powder & Liquid)</a></li>
-                    <li><a class="ms-link" href="{{ route('production.register','bin') }}">Production (Bin)</a></li>
+                    <li><a class="ms-link" href="{{ route('production.register', 'bin') }}">Production (Bin)</a></li>
+                    <li><a class="ms-link" href="{{ route('production.register', 'decom') }}">Production (DECOM)</a></li>
                 </ul>
             </li>
 

@@ -24,7 +24,9 @@ class ProductionController extends Controller implements HasMiddleware
             $this->materials = Material::where('type', 'material')->get();
         elseif ($type == 'mixing'):
             $m = Material::whereIn('type', ['liquid']);
-            $this->materials = $m->union(Material::where('id', defaultProductId()))->get();
+            $this->materials = $m->union(Material::where('id', defaultProductIds()['mixing_powder']))->get();
+        elseif ($type == 'decom'):
+            $this->materials = Material::where('type', 'powder')->limit(2)->get();
         else:
             $this->materials = Material::where('type', 'bin')->get();
         endif;
@@ -48,7 +50,7 @@ class ProductionController extends Controller implements HasMiddleware
     {
         $materials = $this->materials;
         $products = Material::where('type', 'parts')->orderBy('id')->get();
-        $productsm = Material::where('type', 'cocopeat')->orderBy('id')->get();
+        $productsm = Material::where('type', 'decom')->orderBy('id')->get();
         $productions = Production::withTrashed()->where('type', $type)->where('branch_id', Session::get('branch'))->latest()->get();
         return view('production.index', compact('productions', 'materials', 'products', 'productsm', 'type'));
     }
@@ -119,7 +121,7 @@ class ProductionController extends Controller implements HasMiddleware
     {
         try {
             $production = Production::findOrFail(decrypt($id));
-            if ($production->details()->where('type', 'in')->exists()):
+            if ($type != 'bin' && $production->details()->where('type', 'in')->exists()):
                 throw new Exception("User not allowed to edit this record at the moment");
             endif;
             $materials = $this->materials;
@@ -163,7 +165,7 @@ class ProductionController extends Controller implements HasMiddleware
                         ];
                     endif;
                 endforeach;
-                ProductionDetails::where('production_id', $production->id)->where('type', 'out')->delete();
+                ProductionDetails::where('production_id', $production->id)->where('type', ($type == 'bin') ? 'in' : 'out')->delete();
                 ProductionDetails::insert($data);
             });
         } catch (Exception $e) {
@@ -179,7 +181,7 @@ class ProductionController extends Controller implements HasMiddleware
     {
         try {
             $production = Production::where('id', decrypt($id))->firstOrFail();
-            if ($production->details()->where('type', 'in')->exists()):
+            if ($type != 'bin' && $production->details()->where('type', 'in')->exists()):
                 throw new Exception("User not allowed to delete this record at the moment");
             endif;
             $production->delete();

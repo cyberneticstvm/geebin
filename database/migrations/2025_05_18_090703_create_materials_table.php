@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->enum('unit', ['Kilo', 'Number', 'Litre'])->nullable();
             $table->decimal('cost_per_unit', 8, 2)->default(0);
-            $table->enum('type', ['material', 'parts', 'bin', 'powder', 'liquid', 'bag', 'cocopeat'])->nullable();
+            $table->enum('type', ['material', 'parts', 'bin', 'powder', 'liquid', 'bag', 'decom'])->nullable();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
             $table->timestamps();
