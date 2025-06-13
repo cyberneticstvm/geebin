@@ -108,24 +108,27 @@ class AjaxController extends Controller
         else:
             $msg = "";
             $flag = true;
+            $tot = 0;
             $qty = 0;
-            $products = Material::whereIn('type', ['decom'])->orderBy('id')->pluck('name');
+            $products = Material::whereIn('type', ['decom'])->orderBy('id')->get()->toArray();
             $production = ProductionDetails::where('production_id', $request->productionId)->where('type', 'out')->get();
             $expected_qty = 0;
             foreach ($production as $key => $prod):
-                $name = str_replace(' ', '_', strtolower($products[$key]));
-                $qty += $input[$name] ?? 0;
+                $name = str_replace(' ', '_', strtolower($products[$key]['name']));
+                $qty = $input[$name] ?? 0;
                 if ($prod->production->type == 'mixing'):
                     $formula = mixingFormula();
                     $expected_qty += ($prod->material->id == defaultProductIds()['mixing_powder']) ? $prod->qty / $formula['powder'] : 0;
                 else:
                     $formula = decomFormula();
-                    $expected_qty += $prod->qty / $formula['powder'];
+                    $expected_qty += ($prod->material->id == defaultProductIds()['powder1']) ? $prod->qty / $formula['powder1'] : $prod->qty / $formula['powder2'];
                 endif;
+                $t = $qty * ($products[$key]['id'] == defaultProductIds()['3kg_decom']) ? 3 : 5;
+                $tot += $qty * $t;
             endforeach;
-            if (number_format($expected_qty, 2) != number_format($qty, 2)):
+            if (number_format($expected_qty, 2) != number_format($tot, 2)):
                 $flag = false;
-                $msg = "Mismatch!<br/> Expected total Qty is " . number_format($expected_qty, 2) . "<br/>But provided total Qty is " . number_format($qty, 2);
+                $msg = "Mismatch!<br/> Expected total Qty is " . number_format($expected_qty, 2) . "<br/>But provided total Qty is " . number_format($tot, 2);
             endif;
             if ($flag):
                 return response()->json([

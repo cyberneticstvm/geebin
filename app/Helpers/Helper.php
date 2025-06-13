@@ -13,7 +13,7 @@ function uniqueId($model, $column)
 
 function decomFormula()
 {
-    return array('powder' => 0.08, 'cocopeat' => 0.92, 'qty' => 1);
+    return array('powder1' => 0.40, 'powder2' => 0.40, 'cocopeat' => 0.92, 'qty' => 1);
     // 0.65 kg powder + 0.35 kg cocopeat = 1kg decom
 }
 
@@ -25,7 +25,7 @@ function mixingFormula()
 
 function defaultProductIds()
 {
-    return array('ppcp' => 1, 'color' => 2, 'liquid' => 15, 'mixing_powder' => 18, '3kg_decom' => 19, '5kg_decom' => 20);
+    return array('ppcp' => 1, 'color' => 2, 'powder1' => 16, 'powder2' => 17, 'liquid' => 15, 'mixing_powder' => 18, '3kg_decom' => 19, '5kg_decom' => 20);
 }
 
 function materialTypes()
