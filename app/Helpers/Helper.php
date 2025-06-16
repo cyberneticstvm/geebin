@@ -23,7 +23,7 @@ function mixingFormula()
 
 function defaultProductIds()
 {
-    return array('ppcp' => 1, 'color' => 2, 'powder1' => 16, 'powder2' => 17, 'liquid' => 15, 'mixing_powder' => 18, '3kg_decom' => 19, '5kg_decom' => 20);
+    return array('ppcp' => 1, 'color' => 2, 'powder1' => 16, 'powder2' => 17, 'liquid' => 15, 'mixing_powder' => 20, '3kg_decom' => 18, '5kg_decom' => 19);
 }
 
 function materialTypes()
