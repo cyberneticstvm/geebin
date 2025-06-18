@@ -25,6 +25,7 @@
                             </thead>
                             <tbody>
                                 @forelse($roles as $key => $role)
+                                <tr></tr>
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{ $role->name }}</td>
                                 <td></td>
@@ -36,6 +37,7 @@
                                         </ul>
                                     </div>
                                 </td>
+                                </tr>
                                 @empty
                                 @endforelse
                             </tbody>
