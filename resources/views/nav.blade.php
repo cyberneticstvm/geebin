@@ -49,7 +49,7 @@
                 </a>
                 {{
                     Menu::new()->addClass('')->setAttribute('aria-expanded', 'false')
-                    ->linkIfCan('branch-list', route('branch.register'), 'Branch Register');
+                    ->linkIfCan('branch-list', route('branch.register'), 'Branch Register')
                     ->linkIfCan('entity-list', route('entity.register'), 'Entity Register');
                 }}
             </li>

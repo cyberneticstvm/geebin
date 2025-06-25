@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Branch;
+use App\Models\Extra;
 use App\Models\User;
 use App\Models\UserBranch;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -50,10 +51,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $branch = Branch::create([
-            'name' => 'Trivandrum',
-            'code' => 'TVM',
+            'name' => 'Kottayam',
+            'code' => 'KTM',
             'contact_number' => '0123456789',
-            'address' => 'Trivandrum',
+            'address' => 'Perumbavoor',
             'created_by' => $user->id,
             'updated_by' => $user->id,
         ]);
@@ -68,5 +69,10 @@ class DatabaseSeeder extends Seeder
             'created_by' => $user->id,
             'updated_by' => $user->id,
         ]);
+
+        Extra::create(['key' => 'entity', 'value' => 'Supplier']);
+        Extra::create(['key' => 'entity', 'value' => 'Production Unit']);
+        Extra::create(['key' => 'entity', 'value' => 'Assembling Unit']);
+        Extra::create(['key' => 'entity', 'value' => 'Warehouse']);
     }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\EntityController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -59,7 +60,7 @@ Route::middleware(['web', 'auth', 'branch'])->group(function () {
         Route::get('delete/{id}', 'destroy')->name('branch.delete');
         Route::get('restore/{id}', 'restore')->name('branch.restore');
     });
-    Route::prefix('entity')->controller(BranchController::class)->group(function () {
+    Route::prefix('entity')->controller(EntityController::class)->group(function () {
         Route::get('/', 'index')->name('entity.register');
         Route::get('create', 'create')->name('entity.create');
         Route::post('create', 'store')->name('entity.save');
