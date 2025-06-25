@@ -59,4 +59,13 @@ Route::middleware(['web', 'auth', 'branch'])->group(function () {
         Route::get('delete/{id}', 'destroy')->name('branch.delete');
         Route::get('restore/{id}', 'restore')->name('branch.restore');
     });
+    Route::prefix('entity')->controller(BranchController::class)->group(function () {
+        Route::get('/', 'index')->name('entity.register');
+        Route::get('create', 'create')->name('entity.create');
+        Route::post('create', 'store')->name('entity.save');
+        Route::get('edit/{id}', 'edit')->name('entity.edit');
+        Route::post('edit/{id}', 'update')->name('entity.update');
+        Route::get('delete/{id}', 'destroy')->name('entity.delete');
+        Route::get('restore/{id}', 'restore')->name('entity.restore');
+    });
 });

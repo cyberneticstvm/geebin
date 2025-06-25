@@ -33,6 +33,10 @@ class DatabaseSeeder extends Seeder
             'branch-create',
             'branch-edit',
             'branch-delete',
+            'entity-list',
+            'entity-create',
+            'entity-edit',
+            'entity-delete',
         ];
 
         foreach ($permissions as $permission) {
