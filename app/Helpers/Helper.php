@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Branch;
 use App\Models\PurchaseDetail;
 use Illuminate\Support\Facades\DB;
 
@@ -9,6 +10,11 @@ function uniqueId($model, $column)
         $code = random_int(100000, 999999);
     } while ($model::where($column, $code)->first());
     return $code;
+}
+
+function branches()
+{
+    return Branch::all();
 }
 
 function decomFormula()

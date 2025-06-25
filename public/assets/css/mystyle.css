@@ -1,0 +1,46 @@
+@font-face {
+    font-family: MalluFontManjari; /* Choose a name for your font */
+    src: url('/storage/fonts/Manjari-Regular.ttf') format('truetype');
+}
+.req::after {
+    content: " *";
+    color: red;
+}
+
+table.dataTable tr.selected {
+    color: black !important;
+}
+
+.btn,
+.form-control,
+.form-check-input, .select2-selection--multiple, .select2-selection--single, .select2-selection__choice {
+    border-radius: 0 !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice{
+    background-color: #000;
+    color: #fff;
+}
+
+.select2-selection--single{
+    height: 2.65rem !important;
+}
+
+.table thead tr th:last-child{
+    text-align: left !important;
+}
+
+.card {
+    height: inherit !important;
+}
+
+.studentNote{
+    font-family: MalluFontManjari !important;
+    font-size: large !important;
+    color: #000 !important;
+    text-align: left !important;
+}
+
+.studentNote p{
+    text-align: left !important;
+}

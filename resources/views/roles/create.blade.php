@@ -1,15 +1,20 @@
 @extends("base")
 @section("content")
-<div class="body px-xl-4 px-md-2">
+<div class="content-body">
     <div class="container-fluid">
-        <div class="row clearfix">
-            <div class="col-lg-12 col-md-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center bg-transparent border-bottom-0 mt-3">
-                        <div class="col-6">
-                            <h5 class="m-0">Create User Role</h5>
-                        </div>
-                    </div>
+        <div class="page-titles">
+            <h5 class="dashboard_bar">Roles & Permissions</h5>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">
+                        Home </a>
+                </li>
+                <li class="breadcrumb-item"><a href="{{ route('role.register') }}">Roles & Permissions</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Create</a></li>
+            </ul>
+        </div>
+        <div class="row mt-3">
+            <div class="col-xl-12">
+                <div class="card dz-card">
                     <div class="card-body">
                         <div class="basic-form">
                             {{ html()->form('POST', route('role.save'))->open() }}
@@ -36,8 +41,8 @@
                             </div>
                             <div class="row">
                                 <div class="col text-end">
-                                    <a onClick="window.history.back()" class="btn btn-secondary">Cancel</a>
-                                    {{ html()->submit("Save Role")->class("btn btn-submit btn-primary") }}
+                                    <a onClick="window.history.back()" class="btn btn-light btn-warning btn-link">Cancel</a>
+                                    {{ html()->submit("Save Role")->class("btn btn-submit btn-outline-primary") }}
                                 </div>
                             </div>
                             {{ html()->form()->close() }}

@@ -76,6 +76,7 @@ class BranchController extends Controller implements HasMiddleware
      */
     public function update(Request $request, string $id)
     {
+        $id = decrypt($id);
         $request->validate([
             'name' => 'required|unique:branches,name,' . $id,
             'code' => 'required|unique:branches,code,' . $id,

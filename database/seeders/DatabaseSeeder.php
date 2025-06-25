@@ -2,9 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\Models\Branch;
 use App\Models\User;
+use App\Models\UserBranch;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,9 +20,49 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $permissions = [
+            'role-list',
+            'role-create',
+            'role-edit',
+            'role-delete',
+            'user-list',
+            'user-create',
+            'user-edit',
+            'user-delete',
+            'branch-list',
+            'branch-create',
+            'branch-edit',
+            'branch-delete',
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::create(['name' => $permission, 'guard_name' => 'web']);
+        }
+
+        $user = User::create([
+            'name' => 'Administrator',
+            'email' => 'mail@cybernetics.me',
+            'password' => Hash::make('stupid'),
+        ]);
+
+        $branch = Branch::create([
+            'name' => 'Trivandrum',
+            'code' => 'TVM',
+            'contact_number' => '0123456789',
+            'address' => 'Trivandrum',
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+        ]);
+
+        $role = Role::create(['name' => 'Administrator']);
+        $permissions = Permission::pluck('id', 'id')->all();
+        $role->syncPermissions($permissions);
+        $user->assignRole([$role->id]);
+        UserBranch::create([
+            'user_id' => $user->id,
+            'branch_id' => $branch->id,
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
         ]);
     }
 }

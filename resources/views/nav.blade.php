@@ -1,69 +1,98 @@
-<!-- sidebar tab menu -->
-<div class="sidebar px-3 py-1">
-    <div class="d-flex flex-column h-100">
-        <h5 class="sidebar-title mb-4 mt-2">GB<span> - GeeBin</span></h5>
-
-        <!-- Menu: main ul -->
-        <ul class="menu-list flex-grow-1">
-            <li><a class="m-link {{ Route::is('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-            <li class="collapsed">
-                <a class="m-link {{ Route::is('user.*') ? 'active' : '' }}{{ Route::is('role.*') ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-Pages" href="#"><i class="fa fa-user"></i> <span>User</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
-
-                <!-- Menu: Sub menu ul -->
-                <ul class="sub-menu collapse" id="menu-Pages">
-                    <li><a class="ms-link {{ Route::is('user.*') ? 'active' : '' }}" href="{{ route('user.register') }}">User Management</a></li>
-                    <li><a class="ms-link {{ Route::is('role.*') ? 'active' : '' }}" href="{{ route('role.register') }}">Roles & Permissions</a></li>
-                </ul>
+<!--**********************************
+            Sidebar start
+        ***********************************-->
+<div class="deznav">
+    <div class="deznav-scroll grid-menu">
+        <ul class="metismenu" id="menu">
+            <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                    <div class="menu-icon ai-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M5.55286 19.446H9.14743V13.1482H14.8507V19.446H18.4453V9.77373L11.9991 4.94055L5.55286 9.77571V19.446ZM5.55286 21.1493C5.08446 21.1493 4.68348 20.9825 4.34993 20.6489C4.01638 20.3154 3.84961 19.9144 3.84961 19.446V9.77373C3.84961 9.50478 3.90971 9.25 4.02991 9.00938C4.15011 8.76876 4.31791 8.56974 4.53331 8.4123L10.9735 3.57915C11.1317 3.46719 11.2973 3.38222 11.4704 3.32426C11.6434 3.26629 11.8215 3.2373 12.0045 3.2373C12.1875 3.2373 12.3642 3.26629 12.5347 3.32426C12.7052 3.38222 12.8685 3.46719 13.0246 3.57915L19.4648 8.4123C19.6798 8.57115 19.8486 8.77066 19.9709 9.01083C20.0933 9.251 20.1545 9.5053 20.1545 9.77373V19.446C20.1545 19.9144 19.9871 20.3154 19.6524 20.6489C19.3177 20.9825 18.9153 21.1493 18.4453 21.1493H13.2132V14.7857H10.7849V21.1493H5.55286Z"
+                                fill="#6F767E" />
+                        </svg>
+                    </div>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+                {{
+                    Menu::new()->addClass('')->setAttribute('aria-expanded', 'false')
+                    ->link(route('dashboard'), 'Dashboard');
+                }}
             </li>
-            <li class="collapsed">
-                <a class="m-link {{ Route::is('branch.*') ? 'active' : '' }}{{ Route::is('company.*') ? 'active' : '' }}{{ Route::is('material.*') ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-Authentication" href="#"><i class="fa fa-dashboard"></i> <span>Administration</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
-
-                <!-- Menu: Sub menu ul -->
-                <ul class="sub-menu collapse" id="menu-Authentication">
-                    <li><a class="ms-link {{ Route::is('branch.*') ? 'active' : '' }}" href="{{ route('branch.register') }}">Branch Management</a></li>
-                    <li><a class="ms-link {{ Route::is('company.*') ? 'active' : '' }}" href="{{ route('company.register') }}">Firm Management</a></li>
-                    <li><a class="ms-link {{ Route::is('material.*') ? 'active' : '' }}" href="{{ route('material.register') }}">Material Management</a></li>
-                </ul>
+            <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                    <div class="menu-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+                            width="24px" fill="#5f6368">
+                            <path
+                                d="M400-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM80-160v-112q0-33 17-62t47-44q51-26 115-44t141-18h14q6 0 12 2-8 18-13.5 37.5T404-360h-4q-71 0-127.5 18T180-306q-9 5-14.5 14t-5.5 20v32h252q6 21 16 41.5t22 38.5H80Zm560 40-12-60q-12-5-22.5-10.5T584-204l-58 18-40-68 46-40q-2-14-2-26t2-26l-46-40 40-68 58 18q11-8 21.5-13.5T628-460l12-60h80l12 60q12 5 22.5 11t21.5 15l58-20 40 70-46 40q2 12 2 25t-2 25l46 40-40 68-58-18q-11 8-21.5 13.5T732-180l-12 60h-80Zm40-120q33 0 56.5-23.5T760-320q0-33-23.5-56.5T680-400q-33 0-56.5 23.5T600-320q0 33 23.5 56.5T680-240ZM400-560q33 0 56.5-23.5T480-640q0-33-23.5-56.5T400-720q-33 0-56.5 23.5T320-640q0 33 23.5 56.5T400-560Zm0-80Zm12 400Z" />
+                        </svg>
+                    </div>
+                    <span class="nav-text">Account</span>
+                </a>
+                {{
+                    Menu::new()->addClass('')->setAttribute('aria-expanded', 'false')
+                    ->linkIfCan('user-list', route('user.register'), 'Users')
+                    ->linkIfCan('role-list', route('role.register'), 'Roles & Permissions');
+                }}
             </li>
-            <li><a class="m-link {{ Route::is('formula') ? 'active' : '' }}" href="{{ route('formula') }}"><i class="fa fa-server"></i> <span>Formula</span></a></li>
-
-            <li><a class="m-link {{ Route::is('purchase.*') ? 'active' : '' }}" href="{{ route('purchase.register') }}"><i class="fa fa-dollar"></i> <span>Purchase</span></a></li>
-
-            <li class="collapsed">
-                <a class="m-link {{ Route::is('transfer.*') ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-Authentication" href="#"><i class="fa fa-exchange"></i> <span>Transfer</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
-
-                <!-- Menu: Sub menu ul -->
-                <ul class="sub-menu collapse" id="menu-Authentication">
-                    <li><a class="ms-link" href="{{ route('transfer.register', 'material') }}">Material</a></li>
-                    <li><a class="ms-link" href="{{ route('transfer.register', 'parts') }}">Parts</a></li>
-                    <!--<li><a class="ms-link" href="{{ route('transfer.register', 'powder') }}">Powder</a></li>-->
-                    <li><a class="ms-link" href="{{ route('transfer.register', 'bag') }}">Bag</a></li>
-                    <li><a class="ms-link" href="{{ route('transfer.register', 'bin') }}">Bin / Product</a></li>
-                    <li><a class="ms-link {{ Route::is('transfer.pending.approval.register') ? 'active' : '' }}" href="{{ route('transfer.pending.approval.register') }}">Pending Approval</a></li>
-                </ul>
+            <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                    <div class="menu-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M3.71413 19.0875C3.48299 19.0875 3.28925 19.0082 3.1329 18.8497C2.97655 18.6912 2.89838 18.496 2.89838 18.2643C2.89838 18.0326 2.97655 17.839 3.1329 17.6834C3.28925 17.5278 3.48299 17.45 3.71413 17.45H8.38913C8.61876 17.45 8.81313 17.5289 8.97223 17.6866C9.13133 17.8444 9.21088 18.0399 9.21088 18.2731C9.21088 18.5048 9.13133 18.6985 8.97223 18.8541C8.81313 19.0097 8.61876 19.0875 8.38913 19.0875H3.71413ZM3.71413 6.55C3.48299 6.55 3.28925 6.47112 3.1329 6.31337C2.97655 6.15561 2.89838 5.96012 2.89838 5.72692C2.89838 5.49521 2.97655 5.30154 3.1329 5.14592C3.28925 4.99031 3.48299 4.9125 3.71413 4.9125H12.5391C12.7688 4.9125 12.9631 4.99177 13.1222 5.1503C13.2813 5.30885 13.3609 5.50397 13.3609 5.73567C13.3609 5.96739 13.2813 6.16104 13.1222 6.31662C12.9631 6.47221 12.7688 6.55 12.5391 6.55H3.71413ZM11.4578 21.1375C11.2272 21.1375 11.0332 21.0587 10.8756 20.9009C10.7179 20.7432 10.6391 20.5482 10.6391 20.3158V16.1907C10.6391 15.9596 10.719 15.7659 10.8787 15.6095C11.0384 15.4532 11.2335 15.375 11.464 15.375C11.6945 15.375 11.8876 15.4532 12.0432 15.6095C12.1988 15.7659 12.2766 15.9596 12.2766 16.1907V17.45H20.2859C20.517 17.45 20.7108 17.5289 20.8671 17.6866C21.0235 17.8444 21.1016 18.0399 21.1016 18.2731C21.1016 18.5048 21.0235 18.6985 20.8671 18.8541C20.7108 19.0097 20.517 19.0875 20.2859 19.0875H12.2766V20.3158C12.2766 20.5482 12.1982 20.7432 12.0412 20.9009C11.8843 21.0587 11.6898 21.1375 11.4578 21.1375ZM8.386 14.8657C8.15549 14.8657 7.96242 14.7876 7.8068 14.6312C7.65119 14.4749 7.57338 14.2811 7.57338 14.05V12.8157H3.71413C3.48299 12.8157 3.28925 12.7373 3.1329 12.5803C2.97655 12.4234 2.89838 12.2289 2.89838 11.9969C2.89838 11.7649 2.97655 11.5714 3.1329 11.4165C3.28925 11.2617 3.48299 11.1842 3.71413 11.1842H7.57338V9.9C7.57338 9.66887 7.65185 9.47512 7.8088 9.31877C7.96575 9.16242 8.16023 9.08425 8.39225 9.08425C8.62279 9.08425 8.81685 9.16242 8.97445 9.31877C9.13207 9.47512 9.21088 9.66887 9.21088 9.9V14.05C9.21088 14.2811 9.13103 14.4749 8.97133 14.6312C8.81164 14.7876 8.61654 14.8657 8.386 14.8657ZM11.4609 12.8157C11.2312 12.8157 11.0369 12.7373 10.8778 12.5803C10.7187 12.4234 10.6391 12.2289 10.6391 11.9969C10.6391 11.7649 10.7187 11.5714 10.8778 11.4165C11.0369 11.2617 11.2312 11.1842 11.4609 11.1842H20.2859C20.517 11.1842 20.7108 11.2627 20.8671 11.4197C21.0235 11.5766 21.1016 11.7711 21.1016 12.0031C21.1016 12.2351 21.0235 12.4286 20.8671 12.5834C20.7108 12.7383 20.517 12.8157 20.2859 12.8157H11.4609ZM15.6078 8.625C15.3772 8.625 15.1832 8.54682 15.0256 8.39047C14.8679 8.23411 14.7891 8.04037 14.7891 7.80925V3.68425C14.7891 3.45182 14.869 3.25675 15.0287 3.09905C15.1884 2.94135 15.3835 2.8625 15.614 2.8625C15.8445 2.8625 16.0376 2.94135 16.1932 3.09905C16.3488 3.25675 16.4266 3.45182 16.4266 3.68425V4.9125H20.2859C20.517 4.9125 20.7108 4.99177 20.8671 5.1503C21.0235 5.30885 21.1016 5.50397 21.1016 5.73567C21.1016 5.96739 21.0235 6.16104 20.8671 6.31662C20.7108 6.47221 20.517 6.55 20.2859 6.55H16.4266V7.80925C16.4266 8.04037 16.3482 8.23411 16.1912 8.39047C16.0343 8.54682 15.8398 8.625 15.6078 8.625Z"
+                                fill="#6F767E" />
+                        </svg>
+                    </div>
+                    <span class="nav-text">Administration</span>
+                </a>
+                {{
+                    Menu::new()->addClass('')->setAttribute('aria-expanded', 'false')
+                    ->linkIfCan('branch-list', route('branch.register'), 'Branch Register');
+                }}
             </li>
-
-            <li class="collapsed">
-                <a class="m-link {{ Route::is('production.*') ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-Authentication" href="#"><i class="fa fa-archive"></i> <span>Production</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
-
-                <!-- Menu: Sub menu ul -->
-                <ul class="sub-menu collapse" id="menu-Authentication">
-                    <li><a class="ms-link" href="{{ route('production.register','parts') }}">Production (Parts)</a></li>
-                    <li><a class="ms-link" href="{{ route('production.register', 'mixing') }}">Mixing (Powder & Liquid)</a></li>
-                    <li><a class="ms-link" href="{{ route('production.register', 'bin') }}">Production (Bin)</a></li>
-                    <li><a class="ms-link" href="{{ route('production.register', 'decom') }}">Production (DECOM)</a></li>
-                </ul>
-            </li>
-
-            <li><a class="m-link {{ Route::is('sales.*') ? 'active' : '' }}" href="{{ route('dashboard') }}"><i class="fa fa-gift"></i> <span>Sales</span></a></li>
-
-            <li class="divider mt-4 py-2 border-top"><small>REPORTS</small></li>
-            <li><a class="m-link {{ Route::is('reports.*') ? 'active' : '' }}" href="{{ route('dashboard') }}"><i class="fa fa-pie-chart"></i> <span>Reports</span></a></li>
         </ul>
-
-        <!-- Menu: menu collepce btn -->
-        <button type="button" class="btn btn-link text-primary sidebar-mini-btn">
-            <span><i class="fa fa-arrow-left"></i></span>
-        </button>
+        <div class="help-desk">
+            <a href="https://nexadash.dexignzone.com/doc/" target="_blank" class="btn btn-light">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M7.30074 14.8016H12.7043C12.8884 14.8016 13.0428 14.7386 13.1673 14.6124C13.2919 14.4863 13.3542 14.33 13.3542 14.1436C13.3542 13.9586 13.2919 13.8045 13.1673 13.6814C13.0428 13.5584 12.8884 13.4968 12.7043 13.4968H7.29576C7.11162 13.4968 6.95727 13.5594 6.8327 13.6846C6.70813 13.8098 6.64584 13.9649 6.64584 14.1499C6.64584 14.335 6.70861 14.4899 6.83413 14.6146C6.95965 14.7393 7.11518 14.8016 7.30074 14.8016ZM7.30074 11.2599H12.7043C12.8884 11.2599 13.0428 11.1969 13.1673 11.0708C13.2919 10.9447 13.3542 10.7884 13.3542 10.6019C13.3542 10.4169 13.2919 10.2628 13.1673 10.1398C13.0428 10.0167 12.8884 9.95515 12.7043 9.95515H7.29576C7.11162 9.95515 6.95727 10.0177 6.8327 10.1429C6.70813 10.2681 6.64584 10.4232 6.64584 10.6083C6.64584 10.7933 6.70861 10.9482 6.83413 11.0729C6.95965 11.1976 7.11518 11.2599 7.30074 11.2599ZM4.62818 18.4579C4.24486 18.4579 3.91246 18.3171 3.63099 18.0357C3.34953 17.7542 3.2088 17.4218 3.2088 17.0385V2.96148C3.2088 2.5768 3.34953 2.24324 3.63099 1.9608C3.91246 1.67834 4.24486 1.53711 4.62818 1.53711H11.5634C11.7599 1.53711 11.9471 1.57682 12.1252 1.65623C12.3032 1.73564 12.4561 1.8392 12.5838 1.96692L16.3664 5.74953C16.4941 5.87725 16.5977 6.03013 16.6771 6.20817C16.7565 6.38621 16.7962 6.57346 16.7962 6.76992V17.0385C16.7962 17.4218 16.655 17.7542 16.3725 18.0357C16.0901 18.3171 15.7565 18.4579 15.3718 18.4579H4.62818ZM11.4343 6.1268V2.96148H4.62818V17.0385H15.3718V6.83648H12.144C11.9437 6.83648 11.7753 6.76829 11.6389 6.6319C11.5025 6.4955 11.4343 6.32713 11.4343 6.1268Z"
+                        fill="#6F767E" />
+                </svg>
+                <span>Live Documentation</span></a>
+            <a href="javascript:void(0)" class="btn-link d-flex align-items-center mt-4 help-btn">
+                <svg class="me-2" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12.0887 17.825C12.3629 17.825 12.5976 17.7271 12.7929 17.5313C12.9882 17.3356 13.0858 17.0994 13.0858 16.8226C13.0858 16.5459 12.988 16.3112 12.7922 16.1184C12.5964 15.9257 12.3605 15.8293 12.0843 15.8293C11.8082 15.8293 11.5734 15.9258 11.3801 16.1187C11.1868 16.3116 11.0902 16.5477 11.0902 16.827C11.0902 17.1018 11.1873 17.3368 11.3816 17.5321C11.5759 17.7274 11.8116 17.825 12.0887 17.825ZM12.0075 22.1494C10.6041 22.1494 9.28708 21.8838 8.05642 21.3525C6.82577 20.8212 5.74945 20.0945 4.82745 19.1725C3.90545 18.2505 3.17879 17.1738 2.64747 15.9425C2.11617 14.7112 1.85052 13.3931 1.85052 11.9883C1.85052 10.5835 2.11617 9.2652 2.64747 8.03332C3.17879 6.80142 3.90513 5.72853 4.8265 4.81464C5.74788 3.90078 6.82439 3.17729 8.05603 2.64419C9.28767 2.11109 10.606 1.84454 12.0111 1.84454C13.4163 1.84454 14.735 2.11094 15.9674 2.64374C17.1997 3.17653 18.2727 3.89959 19.1863 4.81294C20.0999 5.72629 20.8231 6.80032 21.356 8.03502C21.889 9.26974 22.1554 10.5892 22.1554 11.9933C22.1554 13.3973 21.8889 14.7145 21.3558 15.9451C20.8227 17.1757 20.0992 18.2502 19.1853 19.1686C18.2714 20.0871 17.1975 20.8135 15.9635 21.3479C14.7295 21.8823 13.4108 22.1494 12.0075 22.1494ZM12.0125 20.4462C14.3549 20.4462 16.3461 19.6233 17.9861 17.9774C19.6262 16.3315 20.4462 14.3349 20.4462 11.9875C20.4462 9.64511 19.6277 7.65389 17.9908 6.01384C16.3539 4.37381 14.3559 3.55379 11.997 3.55379C9.66092 3.55379 7.66972 4.37225 6.02335 6.00917C4.37697 7.64609 3.55377 9.64403 3.55377 12.003C3.55377 14.339 4.37671 16.3303 6.02257 17.9766C7.66844 19.623 9.66507 20.4462 12.0125 20.4462ZM12.0574 7.59564C12.537 7.59564 12.9595 7.74369 13.325 8.03979C13.6906 8.33588 13.8734 8.71178 13.8734 9.16749C13.8734 9.59036 13.7479 9.95941 13.4971 10.2746C13.2463 10.5899 12.9626 10.8824 12.6462 11.1522C12.2628 11.4728 11.9285 11.8294 11.6432 12.2219C11.3579 12.6144 11.2152 13.0535 11.2152 13.5391C11.2152 13.7326 11.2894 13.887 11.4377 14.0022C11.5861 14.1174 11.7592 14.175 11.957 14.175C12.169 14.175 12.3456 14.1043 12.4868 13.963C12.628 13.8217 12.7233 13.6471 12.7728 13.4391C12.8268 13.1011 12.957 12.7953 13.1636 12.5218C13.3701 12.2483 13.6131 12.0008 13.8927 11.7793C14.3015 11.4464 14.6373 11.0527 14.9 10.5982C15.1627 10.1438 15.294 9.65604 15.294 9.13502C15.294 8.29029 14.9835 7.58378 14.3625 7.01549C13.7415 6.44719 13.0049 6.16304 12.1527 6.16304C11.5452 6.16304 10.9639 6.29103 10.4088 6.54699C9.85362 6.80298 9.39507 7.17662 9.03312 7.66792C8.91247 7.84257 8.85719 8.03164 8.86727 8.23514C8.87734 8.43864 8.96335 8.60284 9.1253 8.72772C9.3275 8.86504 9.5375 8.90769 9.7553 8.85569C9.9731 8.80371 10.1539 8.68206 10.2978 8.49074C10.5023 8.20831 10.7588 7.98852 11.0673 7.83137C11.3758 7.67422 11.7058 7.59564 12.0574 7.59564Z"
+                        fill="#6F767E" />
+                </svg>
+                <span>Help & getting started</span></a>
+        </div>
+        <div class="mode-btn d-flex align-items-center justify-content-between">
+            <div class="d-mode">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_4_82)">
+                        <path
+                            d="M12.025 23.3407L8.62955 20.0479H3.95118V15.3728L0.584229 12L3.95208 8.62704V3.94519H8.6272L12.025 0.572266L15.3731 3.94497H20.055V8.62694L23.4277 12L20.0549 15.3704V20.0488H15.3728L12.025 23.3407ZM12.025 18.3445C13.7812 18.3445 15.2745 17.7251 16.5049 16.4863C17.7353 15.2474 18.3506 13.7439 18.3506 11.9757C18.3506 10.2214 17.7348 8.72844 16.5034 7.49684C15.2719 6.26524 13.7791 5.64944 12.025 5.64944V18.3445ZM12.025 20.9538L14.6609 18.347H18.3513V14.6568L21.0098 12L18.3493 9.33697V5.64874H14.6645L12.025 2.99022L9.34323 5.64874H5.65298V9.33547L2.9962 12L5.65545 14.6592V18.3445H9.31575L12.025 20.9538Z"
+                            fill="#6F767E" />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_4_82">
+                            <rect width="24" height="24" fill="white" />
+                        </clipPath>
+                    </defs>
+                </svg>
+                <span class="ms-2">Dark Mode</span>
+            </div>
+            <div class="dz-layout light">
+                <i class="fas fa-sun sun"></i>
+                <i class="fas fa-moon moon"></i>
+            </div>
+        </div>
     </div>
 </div>
+<!--**********************************
+            Sidebar end
+        ***********************************-->

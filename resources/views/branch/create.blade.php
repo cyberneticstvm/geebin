@@ -1,15 +1,20 @@
 @extends("base")
 @section("content")
-<div class="body px-xl-4 px-md-2">
+<div class="content-body">
     <div class="container-fluid">
-        <div class="row clearfix">
-            <div class="col-lg-12 col-md-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center bg-transparent border-bottom-0 mt-3">
-                        <div class="col-6">
-                            <h5 class="m-0">Create Firm</h5>
-                        </div>
-                    </div>
+        <div class="page-titles">
+            <h5 class="dashboard_bar">Branch</h5>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">
+                        Home </a>
+                </li>
+                <li class="breadcrumb-item"><a href="{{ route('branch.register') }}">Branch</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Create</a></li>
+            </ul>
+        </div>
+        <div class="row mt-3">
+            <div class="col-xl-12">
+                <div class="card dz-card">
                     <div class="card-body">
                         <div class="basic-form">
                             {{ html()->form('POST', route('branch.save'))->open() }}
@@ -23,26 +28,19 @@
                                 </div>
                                 <div class="mb-3 col-md-2">
                                     <label class="form-label req">Branch Code</label>
-                                    {{ html()->text('code', old('code'))->class("form-control")->maxlength(10)->placeholder("Branch Code") }}
+                                    {{ html()->text('code', old('code'))->class("form-control")->placeholder("Branch Code") }}
                                     @error('code')
                                     <small class="text-danger">{{ $errors->first('code') }}</small>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-3">
-                                    <label class="form-label">Mobile</label>
-                                    {{ html()->text('mobile', old('mobile'))->class("form-control")->maxlength(10)->placeholder("Mobile") }}
-                                    @error('mobile')
-                                    <small class="text-danger">{{ $errors->first('mobile') }}</small>
+                                <div class="mb-3 col-md-2">
+                                    <label class="form-label req">Contact Number</label>
+                                    {{ html()->text('contact_number', old('contact_number'))->class("form-control")->maxlength(10)->placeholder("Contact Number") }}
+                                    @error('contact_number')
+                                    <small class="text-danger">{{ $errors->first('contact_number') }}</small>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-3">
-                                    <label class="form-label">Email</label>
-                                    {{ html()->email('email', old('email'))->class("form-control")->placeholder("Email") }}
-                                    @error('email')
-                                    <small class="text-danger">{{ $errors->first('email') }}</small>
-                                    @enderror
-                                </div>
-                                <div class="mb-3 col-md-6">
+                                <div class="mb-3 col-md-4">
                                     <label class="form-label req">Address</label>
                                     {{ html()->text('address', old('address'))->class("form-control")->placeholder("Address") }}
                                     @error('address')
@@ -52,8 +50,8 @@
                             </div>
                             <div class="row">
                                 <div class="col text-end">
-                                    <a onClick="window.history.back()" class="btn btn-secondary">Cancel</a>
-                                    {{ html()->submit("Save Branch")->class("btn btn-submit btn-primary") }}
+                                    <a onClick="window.history.back()" class="btn btn-light btn-warning btn-link">Cancel</a>
+                                    {{ html()->submit("Save Branch")->class("btn btn-submit btn-outline-primary") }}
                                 </div>
                             </div>
                             {{ html()->form()->close() }}

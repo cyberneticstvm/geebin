@@ -37,8 +37,8 @@ class AuthController extends Controller
 
     function updateBranch(Request $request)
     {
-        Session::put('branch', $request->branch);
-        Session::put('bname', Branch::find($request->branch)->name);
+        $branch = Branch::findOrFail($request->branch);
+        Session::put('branch', $branch);
         if (Session::has('branch')) :
             return redirect()->route('dashboard')
                 ->withSuccess('User branch updated successfully!');

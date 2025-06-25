@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100)->unique();
             $table->string('code', 15)->unique();
-            $table->string('mobile', 10)->nullable();
+            $table->string('contact_number', 10)->nullable();
             $table->string('email', 50)->nullable();
             $table->string('address')->nullable();
             $table->unsignedBigInteger('created_by');
