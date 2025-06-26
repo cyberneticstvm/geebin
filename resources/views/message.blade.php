@@ -161,3 +161,26 @@
         return false;
     }
 </script>
+
+<script>
+    function validateForm(form) {
+        let frm = document.forms[form];
+        if (form == 'frmPurchase' || form == 'frmProduction') {
+            let item = frm['item_ids[]'].value
+            if (!item) {
+                failed({
+                    'error': 'Please select an item'
+                })
+                return false;
+            }
+            let qty = frm['qty[]'].value
+            if (!qty || qty == 0) {
+                failed({
+                    'error': 'Please enter valid qty'
+                })
+                return false;
+            }
+        }
+        return true;
+    }
+</script>

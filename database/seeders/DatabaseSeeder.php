@@ -39,6 +39,18 @@ class DatabaseSeeder extends Seeder
             'entity-edit',
             'entity-delete',
             'item-list',
+            'purchase-list',
+            'purchase-create',
+            'purchase-edit',
+            'purchase-delete',
+            'production-list',
+            'production-create',
+            'production-edit',
+            'production-delete',
+            'transfer-list',
+            'transfer-create',
+            'transfer-edit',
+            'transfer-delete',
         ];
 
         foreach ($permissions as $permission) {
@@ -91,5 +103,10 @@ class DatabaseSeeder extends Seeder
         Extra::create(['id' => 18, 'key' => 'itype', 'value' => 'Liquid']);
         Extra::create(['id' => 19, 'key' => 'itype', 'value' => 'CocoPeat']);
         Extra::create(['id' => 20, 'key' => 'itype', 'value' => 'Decom']);
+        Extra::create(['id' => 21, 'key' => 'entity', 'value' => 'LSGs']);
+        Extra::create(['id' => 22, 'key' => 'tstatus', 'value' => 'Pending']);
+        Extra::create(['id' => 23, 'key' => 'tstatus', 'value' => 'Approved']);
+        Extra::create(['id' => 24, 'key' => 'tstatus', 'value' => 'Rejected']);
+        Extra::create(['id' => 25, 'key' => 'itype', 'value' => 'Scrap']);
     }
 }

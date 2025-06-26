@@ -5,8 +5,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\EntityController;
 use App\Http\Controllers\HelperController;
+use App\Http\Controllers\ProductionController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TransferController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -73,5 +75,25 @@ Route::middleware(['web', 'auth', 'branch'])->group(function () {
         Route::post('edit/{id}', 'update')->name('purchase.update');
         Route::get('delete/{id}', 'destroy')->name('purchase.delete');
         Route::get('restore/{id}', 'restore')->name('purchase.restore');
+    });
+
+    Route::prefix('production')->controller(ProductionController::class)->group(function () {
+        Route::get('/{type}', 'index')->name('production.register');
+        Route::get('create/{type}', 'create')->name('production.create');
+        Route::post('create/{type}', 'store')->name('production.save');
+        Route::get('edit/{id}', 'edit')->name('production.edit');
+        Route::post('edit/{id}', 'update')->name('production.update');
+        Route::get('delete/{id}', 'destroy')->name('production.delete');
+        Route::get('restore/{id}', 'restore')->name('production.restore');
+    });
+
+    Route::prefix('transfer')->controller(TransferController::class)->group(function () {
+        Route::get('/{type}', 'index')->name('transfer.register');
+        Route::get('create/{type}', 'create')->name('transfer.create');
+        Route::post('create/{type}', 'store')->name('transfer.save');
+        Route::get('edit/{id}', 'edit')->name('transfer.edit');
+        Route::post('edit/{id}', 'update')->name('transfer.update');
+        Route::get('delete/{id}', 'destroy')->name('transfer.delete');
+        Route::get('restore/{id}', 'restore')->name('transfer.restore');
     });
 });
