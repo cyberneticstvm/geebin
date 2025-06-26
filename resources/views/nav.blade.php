@@ -50,7 +50,9 @@
                 {{
                     Menu::new()->addClass('')->setAttribute('aria-expanded', 'false')
                     ->linkIfCan('branch-list', route('branch.register'), 'Branch Register')
-                    ->linkIfCan('entity-list', route('entity.register'), 'Entity Register');
+                    ->linkIfCan('entity-list', route('entity.register'), 'Entity Register')
+                    ->linkIfCan('item-list', route('item.register'), 'Item Register')
+                    ->linkIfCan('purchase-list', route('purchase.register'), 'Purchase Register');
                 }}
             </li>
         </ul>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Branch;
+use App\Models\Purchase;
 use App\Models\PurchaseDetail;
 use Illuminate\Support\Facades\DB;
 

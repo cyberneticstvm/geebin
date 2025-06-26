@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
             'entity-create',
             'entity-edit',
             'entity-delete',
+            'item-list',
         ];
 
         foreach ($permissions as $permission) {
@@ -70,9 +71,25 @@ class DatabaseSeeder extends Seeder
             'updated_by' => $user->id,
         ]);
 
-        Extra::create(['key' => 'entity', 'value' => 'Supplier']);
-        Extra::create(['key' => 'entity', 'value' => 'Production Unit']);
-        Extra::create(['key' => 'entity', 'value' => 'Assembling Unit']);
-        Extra::create(['key' => 'entity', 'value' => 'Warehouse']);
+        Extra::create(['id' => 1, 'key' => 'entity', 'value' => 'Supplier']);
+        Extra::create(['id' => 2, 'key' => 'entity', 'value' => 'Master Stock']);
+        Extra::create(['id' => 3, 'key' => 'entity', 'value' => 'Production Unit']);
+        Extra::create(['id' => 4, 'key' => 'entity', 'value' => 'Assembling Unit']);
+        Extra::create(['id' => 5, 'key' => 'entity', 'value' => 'Warehouse']);
+        Extra::create(['id' => 6, 'key' => 'entity', 'value' => 'Franchise']);
+        Extra::create(['id' => 7, 'key' => 'bstatus', 'value' => 'Open']);
+        Extra::create(['id' => 8, 'key' => 'bstatus', 'value' => 'Closed']);
+        Extra::create(['id' => 9, 'key' => 'unit', 'value' => 'Number']);
+        Extra::create(['id' => 10, 'key' => 'unit', 'value' => 'Kilo']);
+        Extra::create(['id' => 11, 'key' => 'unit', 'value' => 'Litre']);
+        Extra::create(['id' => 12, 'key' => 'itype', 'value' => 'Material']);
+        Extra::create(['id' => 13, 'key' => 'itype', 'value' => 'Color']);
+        Extra::create(['id' => 14, 'key' => 'itype', 'value' => 'Parts']);
+        Extra::create(['id' => 15, 'key' => 'itype', 'value' => 'Bin']);
+        Extra::create(['id' => 16, 'key' => 'itype', 'value' => 'Bag']);
+        Extra::create(['id' => 17, 'key' => 'itype', 'value' => 'Powder']);
+        Extra::create(['id' => 18, 'key' => 'itype', 'value' => 'Liquid']);
+        Extra::create(['id' => 19, 'key' => 'itype', 'value' => 'CocoPeat']);
+        Extra::create(['id' => 20, 'key' => 'itype', 'value' => 'Decom']);
     }
 }

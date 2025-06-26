@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\EntityController;
 use App\Http\Controllers\HelperController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -21,15 +22,10 @@ Route::prefix('')->controller(AuthController::class)->group(function () {
 });
 Route::middleware(['web', 'auth', 'branch'])->group(function () {
     Route::prefix('ajax')->controller(AjaxController::class)->group(function () {
-        Route::post('validate/inventory', 'validateInventory')->name('validate.inventory');
-        Route::get('production/output', 'getProductionOutput')->name('get.production.output');
-        Route::post('validate/formula', 'validateFormula')->name('validate.formula');
+        //
     });
     Route::prefix('')->controller(HelperController::class)->group(function () {
-        Route::get('formula', 'materialFormula')->name('formula');
-        Route::get('transfer/pending/approval', 'pendingTransferRegister')->name('transfer.pending.approval.register');
-        Route::post('transfer/pending/approval', 'pendingTransferStatusUpdate')->name('transfer.pending.status.update');
-        Route::post('production/ouput/update', 'updateProductionOutput')->name('production.output.update');
+        Route::get('item', 'items')->name('item.register');
     });
     Route::prefix('')->controller(AuthController::class)->group(function () {
         Route::get('logout', 'logout')->name('logout');
@@ -68,5 +64,14 @@ Route::middleware(['web', 'auth', 'branch'])->group(function () {
         Route::post('edit/{id}', 'update')->name('entity.update');
         Route::get('delete/{id}', 'destroy')->name('entity.delete');
         Route::get('restore/{id}', 'restore')->name('entity.restore');
+    });
+    Route::prefix('purchase')->controller(PurchaseController::class)->group(function () {
+        Route::get('/', 'index')->name('purchase.register');
+        Route::get('create', 'create')->name('purchase.create');
+        Route::post('create', 'store')->name('purchase.save');
+        Route::get('edit/{id}', 'edit')->name('purchase.edit');
+        Route::post('edit/{id}', 'update')->name('purchase.update');
+        Route::get('delete/{id}', 'destroy')->name('purchase.delete');
+        Route::get('restore/{id}', 'restore')->name('purchase.restore');
     });
 });

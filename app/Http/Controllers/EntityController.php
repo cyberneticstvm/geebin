@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
+use App\Models\Entity;
+use App\Models\Extra;
+use App\Models\UserBranch;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Auth;
 
 class EntityController extends Controller implements HasMiddleware
 {
@@ -23,7 +28,8 @@ class EntityController extends Controller implements HasMiddleware
      */
     public function index()
     {
-        //
+        $entities = Entity::withTrashed()->orderBy('name')->get();
+        return view('entity.index', compact('entities'));
     }
 
     /**
@@ -31,7 +37,9 @@ class EntityController extends Controller implements HasMiddleware
      */
     public function create()
     {
-        //
+        $types = Extra::where('key', 'entity')->pluck('value', 'id');
+        $branches = Branch::whereIn('id', UserBranch::where('user_id', Auth::user()->id)->pluck('branch_id'))->pluck('name', 'id');
+        return view('entity.create', compact('types', 'branches'));
     }
 
     /**
@@ -39,7 +47,16 @@ class EntityController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:entities,name',
+            'code' => 'required|unique:entities,code',
+            'address' => 'required',
+        ]);
+        $input = $request->all();
+        $input['created_by'] = $request->user()->id;
+        $input['updated_by'] = $request->user()->id;
+        Entity::create($input);
+        return redirect()->route('entity.register')->with("success", "Entity created successfully");
     }
 
     /**
@@ -55,7 +72,10 @@ class EntityController extends Controller implements HasMiddleware
      */
     public function edit(string $id)
     {
-        //
+        $entity = Entity::findOrFail(decrypt($id));
+        $types = Extra::where('key', 'entity')->pluck('value', 'id');
+        $branches = Branch::whereIn('id', UserBranch::where('user_id', Auth::user()->id)->pluck('branch_id'))->pluck('name', 'id');
+        return view('entity.edit', compact('entity', 'types', 'branches'));
     }
 
     /**
@@ -63,7 +83,16 @@ class EntityController extends Controller implements HasMiddleware
      */
     public function update(Request $request, string $id)
     {
-        //
+        $id = decrypt($id);
+        $request->validate([
+            'name' => 'required|unique:entities,name,' . $id,
+            'code' => 'required|unique:entities,code,' . $id,
+            'address' => 'required',
+        ]);
+        $input = $request->all();
+        $input['updated_by'] = $request->user()->id;
+        Entity::findOrFail($id)->update($input);
+        return redirect()->route('entity.register')->with("success", "Entity updated successfully");
     }
 
     /**
@@ -71,11 +100,13 @@ class EntityController extends Controller implements HasMiddleware
      */
     public function destroy(string $id)
     {
-        //
+        Entity::findOrFail(decrypt($id))->delete();
+        return redirect()->route('entity.register')->with("success", "Entity deleted successfully");
     }
 
     public function restore(string $id)
     {
-        //
+        Entity::withTrashed()->where('id', decrypt($id))->restore();
+        return redirect()->route('entity.register')->with("success", "Entity restored successfully");
     }
 }
