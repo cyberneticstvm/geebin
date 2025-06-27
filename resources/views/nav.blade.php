@@ -39,18 +39,18 @@
                     <li>
                         <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Production</a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ route('production.register', encrypt(14)) }}">Parts (Batch)</a></li>
-                            <li><a href="{{ route('production.register', encrypt(15)) }}">Bin</a></li>
-                            <li><a href="{{ route('production.register', encrypt(20)) }}">Decom</a></li>
+                            <li><a href="{{ route('production.register', ['type' => encrypt(14), 'stype' => 0]) }}">Parts (Batch)</a></li>
+                            <li><a href="{{ route('production.register', ['type' => encrypt(15), 'stype' => 0]) }}">Bin</a></li>
+                            <li><a href="{{ route('production.register', ['type' => encrypt(20), 'stype' => 0]) }}">Decom</a></li>
                         </ul>
                     </li>
                     <li>
                         <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Transfer</a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ route('transfer.register', encrypt(14)) }}">Parts</a></li>
-                            <li><a href="{{ route('transfer.register', encrypt(15)) }}">Bin</a></li>
-                            <li><a href="{{ route('transfer.register', encrypt(16)) }}">Bag</a></li>
-                            <li><a href="{{ route('transfer.register', encrypt(20)) }}">Decom</a></li>
+                            <li><a href="{{ route('transfer.register', ['type' => encrypt(14)]) }}">Parts</a></li>
+                            <li><a href="{{ route('transfer.register', ['type' => encrypt(15)]) }}">Bin</a></li>
+                            <li><a href="{{ route('transfer.register', ['type' => encrypt(16)]) }}">Bag</a></li>
+                            <li><a href="{{ route('transfer.register', ['type' => encrypt(20)]) }}">Decom</a></li>
                         </ul>
                     </li>
                 </ul>

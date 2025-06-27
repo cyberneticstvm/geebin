@@ -8,7 +8,7 @@
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">
                         Home </a>
                 </li>
-                <li class="breadcrumb-item"><a href="{{ route('production.register', encrypt($type->id)) }}">Production</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('production.register', ['type' => encrypt($type->id), 'stype' => 0]) }}">Production</a></li>
                 <li class="breadcrumb-item active"><a href="javascript:void(0)">Create</a></li>
             </ul>
         </div>
@@ -18,6 +18,7 @@
                     <div class="card-body">
                         <div class="basic-form">
                             {{ html()->form('POST', route('production.save', $type->id))->attribute('id', 'frmProduction')->open() }}
+                            <input type="hidden" name="sub_type" value="{{ $stype }}" />
                             <div class="row">
                                 <div class="mb-3 col-md-2">
                                     <label class="form-label req">Production Date</label>

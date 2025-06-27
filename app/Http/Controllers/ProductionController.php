@@ -16,11 +16,31 @@ use Illuminate\Support\Facades\DB;
 
 class ProductionController extends Controller implements HasMiddleware
 {
-    protected $items;
+    protected $items, $entities, $create;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
-        $this->items = Item::whereIn('type', [12, 13, 14, 25])->get();
+        $type = decrypt($request->route()->parameters['type']);
+        $stype = $request->route()->parameters['stype'] ?? 0;
+        if ($type == 14):
+            $this->items = Item::whereIn('type', [12, 13, 14, 25])->get();
+            $this->entities = Entity::whereIn('type_id', [2, 3])->get();
+            $this->create = "production.parts.create";
+        endif;
+        if ($type == 15):
+            $this->items = Item::whereIn('type', [15])->get();
+            $this->entities = Entity::whereIn('type_id', [4])->get();
+            $this->create = "production.bin.create";
+        endif;
+        if ($type == 20):
+            $this->entities = Entity::whereIn('type_id', [2, 3])->get();
+            if ($stype == 1):
+                $this->items = Item::whereIn('id', [5, 6])->get();
+            else:
+                $this->items = Item::whereIn('id', [7, 8])->get();
+            endif;
+            $this->create = "production.decom.create";
+        endif;
     }
     public static function middleware(): array
     {
@@ -46,12 +66,12 @@ class ProductionController extends Controller implements HasMiddleware
     /**
      * Show the form for creating a new resource.
      */
-    public function create($type)
+    public function create($type, $stype)
     {
         $type = Extra::findOrFail(decrypt($type));
-        $entities = Entity::whereIn('type_id', [2, 3])->get();
+        $entities = $this->entities;
         $items = $this->items;
-        return view('production.create', compact('entities', 'items', 'type'));
+        return view($this->create, compact('entities', 'items', 'type', 'stype'));
     }
 
     /**

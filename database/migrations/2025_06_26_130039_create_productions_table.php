@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('production_note')->nullable();
             $table->unsignedBigInteger('type');
             $table->foreign('type')->references('id')->on('extras')->onDelete('cascade');
+            $table->integer('sub_type')->comment('Two types for Decom Production -> Liquid & Powder(2) and Powder(1)')->default(0);
             $table->unsignedBigInteger('closed_by')->nullable();
             $table->foreign('closed_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamp('closed_at')->nullable();
