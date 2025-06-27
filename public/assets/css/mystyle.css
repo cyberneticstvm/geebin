@@ -1,7 +1,3 @@
-@font-face {
-    font-family: MalluFontManjari; /* Choose a name for your font */
-    src: url('/storage/fonts/Manjari-Regular.ttf') format('truetype');
-}
 .req::after {
     content: " *";
     color: red;
@@ -32,15 +28,4 @@ table.dataTable tr.selected {
 
 .card {
     height: inherit !important;
-}
-
-.studentNote{
-    font-family: MalluFontManjari !important;
-    font-size: large !important;
-    color: #000 !important;
-    text-align: left !important;
-}
-
-.studentNote p{
-    text-align: left !important;
 }

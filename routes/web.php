@@ -24,10 +24,13 @@ Route::prefix('')->controller(AuthController::class)->group(function () {
 });
 Route::middleware(['web', 'auth', 'branch'])->group(function () {
     Route::prefix('ajax')->controller(AjaxController::class)->group(function () {
-        //
+        Route::get('material/details/{pid}', 'getMaterialDetails')->name('get.material.details');
+        Route::get('production/details/{pid}', 'getProductionDetails')->name('get.production.details');
     });
     Route::prefix('')->controller(HelperController::class)->group(function () {
         Route::get('item', 'items')->name('item.register');
+        Route::post('production/material/save', 'saveProductionMaterial')->name('production.material.save');
+        Route::post('production/parts/save', 'saveProductionParts')->name('production.parts.save');
     });
     Route::prefix('')->controller(AuthController::class)->group(function () {
         Route::get('logout', 'logout')->name('logout');

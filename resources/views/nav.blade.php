@@ -39,8 +39,9 @@
                     <li>
                         <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Production</a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ route('production.register', encrypt(12)) }}">Material / Batch</a></li>
-                            <li><a href="{{ route('production.register', encrypt(20)) }}">Dcom</a></li>
+                            <li><a href="{{ route('production.register', encrypt(14)) }}">Parts (Batch)</a></li>
+                            <li><a href="{{ route('production.register', encrypt(15)) }}">Bin</a></li>
+                            <li><a href="{{ route('production.register', encrypt(20)) }}">Decom</a></li>
                         </ul>
                     </li>
                     <li>
@@ -49,6 +50,7 @@
                             <li><a href="{{ route('transfer.register', encrypt(14)) }}">Parts</a></li>
                             <li><a href="{{ route('transfer.register', encrypt(15)) }}">Bin</a></li>
                             <li><a href="{{ route('transfer.register', encrypt(16)) }}">Bag</a></li>
+                            <li><a href="{{ route('transfer.register', encrypt(20)) }}">Decom</a></li>
                         </ul>
                     </li>
                 </ul>

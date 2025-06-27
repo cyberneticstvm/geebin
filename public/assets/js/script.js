@@ -41,5 +41,50 @@ $(function(){
             }
         },
     });
-    $("#branchSelector").modal('show');    
+
+    $("#branchSelector").modal('show');
+
+    $(document).on("click", ".viewMaterialBox", function(){
+        let bNumber = $(this).data('bno');
+        let pid = $(this).data('pid');
+        $(".bNumber").text(bNumber)
+        $(".pid").val(pid);
+        $('#materialBox').addClass('active');       
+    });
+    
+    $(document).on("click", ".viewMaterialDetailsBox", function(){
+        let bNumber = $(this).data('bno');
+        let pid = $(this).data('pid');
+        $(".bNumber").text(bNumber)
+        $.ajax({
+            type: 'GET',
+            url: '/ajax/material/details/' + pid,
+            success: function (res) {
+                $('#materialDetailsBox').addClass('active');
+                $(".materialDetails").html(res);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR)
+            }
+        });     
+    }); 
+
+    $(document).on("click", ".viewProductionDetailsBox", function(){
+        let bNumber = $(this).data('bno');
+        let pid = $(this).data('pid');
+        $(".bNumber").text(bNumber)
+        $.ajax({
+            type: 'GET',
+            url: '/ajax/production/details/' + pid,
+            success: function (res) {
+                $('#productionDetailsBox').addClass('active');  
+                $(".productionDetails").html(res);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR)
+            }
+        });   
+             
+    }); 
+
 });
