@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('production_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('production_id');
-            $table->foreign('production_id')->references('id')->on('purchases')->onDelete('cascade');
+            $table->foreign('production_id')->references('id')->on('productions')->onDelete('cascade');
             $table->unsignedBigInteger('item_id');
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
             $table->decimal('qty', 10, 2)->default(0.0);

@@ -7,7 +7,6 @@
                     </button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{{ route('production.create', ['type' => encrypt($type->id), 'stype' => 1]) }}">Powder</a>
-                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('production.create', ['type' => encrypt($type->id), 'stype' => 2]) }}">Liquid & Powder</a>
                     </div>
                 </div>
@@ -29,8 +28,9 @@
                                 <thead>
                                     <tr>
                                         <th>SL No</th>
-                                        <th>Production Unit</th>
-                                        <th>Assembling Unit</th>
+                                        <th>From Facility</th>
+                                        <th>To Facility</th>
+                                        <th>Type</th>
                                         <th>Status</th>
                                         <th>Edit</th>
                                         <th>Delete</th>
@@ -42,9 +42,10 @@
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $prod->fromEntity->name }}</td>
                                         <td>{{ $prod->toEntity->name }}</td>
+                                        <td>{{ $prod->sub_type }}</td>
                                         <td>{!! $prod->status() !!}</td>
-                                        <td><span class="badge badge-lg light badge-warning"><a href="{{ route('production.edit', encrypt($prod->id)) }}" class="text-warning">Edit</a></span></td>
-                                        <td><span class="badge badge-lg light badge-danger"><a href="{{ route('production.delete', encrypt($prod->id)) }}" class="text-danger dlt">Delete</a></span></td>
+                                        <td><span class="badge badge-lg light badge-warning"><a href="{{ route('production.edit', ['type' => encrypt(20), 'id' => encrypt($prod->id), 'stype' => $prod->sub_type]) }}" class="text-warning">Edit</a></span></td>
+                                        <td><span class="badge badge-lg light badge-danger"><a href="{{ route('production.delete', ['id' => encrypt($prod->id), 'type' => encrypt(20), 'stype' => $prod->sub_type]) }}" class="text-danger dlt">Delete</a></span></td>
                                     </tr>
                                     @empty
                                     @endforelse

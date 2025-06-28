@@ -48,7 +48,7 @@ class HelperController extends Controller implements HasMiddleware
         } catch (Exception $e) {
             return redirect()->back()->with("error", $e->getMessage())->withInput($request->all());
         }
-        return redirect()->route("production.register", encrypt($production->type))->with("success", "Material added successfully");
+        return redirect()->route("production.register", ['type' => encrypt($production->type), 'stype' => 0])->with("success", "Material added successfully");
     }
 
     function saveProductionParts(Request $request)
@@ -77,6 +77,6 @@ class HelperController extends Controller implements HasMiddleware
         } catch (Exception $e) {
             return redirect()->back()->with("error", $e->getMessage())->withInput($request->all());
         }
-        return redirect()->route("production.register", encrypt($production->type))->with("success", "Production updated successfully");
+        return redirect()->route("production.register", ['type' => encrypt($production->type), 'stype' => 0])->with("success", "Production updated successfully");
     }
 }

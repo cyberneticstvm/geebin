@@ -18,8 +18,9 @@
                                 <thead>
                                     <tr>
                                         <th>SL No</th>
-                                        <th>Production Unit</th>
                                         <th>Assembling Unit</th>
+                                        <th>Date</th>
+                                        <th>Production</th>
                                         <th>Status</th>
                                         <th>Edit</th>
                                         <th>Delete</th>
@@ -29,11 +30,12 @@
                                     @forelse($productions as $key => $prod)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
-                                        <td>{{ $prod->fromEntity->name }}</td>
                                         <td>{{ $prod->toEntity->name }}</td>
+                                        <td>{{ $prod->production_date->format('d.M.Y') }}</td>
+                                        <td>2 Bin | 3 bin <br>{{ $prod->details->where('type', 'in')->pluck('qty')->implode(" | ") }}</td>
                                         <td>{!! $prod->status() !!}</td>
-                                        <td><span class="badge badge-lg light badge-warning"><a href="{{ route('production.edit', encrypt($prod->id)) }}" class="text-warning">Edit</a></span></td>
-                                        <td><span class="badge badge-lg light badge-danger"><a href="{{ route('production.delete', encrypt($prod->id)) }}" class="text-danger dlt">Delete</a></span></td>
+                                        <td><span class="badge badge-lg light badge-warning"><a href="{{ route('production.edit', ['type' => encrypt(15), 'id' => encrypt($prod->id), 'stype' => $prod->sub_type]) }}" class="text-warning">Edit</a></span></td>
+                                        <td><span class="badge badge-lg light badge-danger"><a href="{{ route('production.delete', ['id' => encrypt($prod->id), 'type' => encrypt(15), 'stype' => 0]) }}" class="text-danger dlt">Delete</a></span></td>
                                     </tr>
                                     @empty
                                     @endforelse

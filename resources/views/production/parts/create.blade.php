@@ -17,8 +17,7 @@
                 <div class="card dz-card">
                     <div class="card-body">
                         <div class="basic-form">
-                            {{ html()->form('POST', route('production.save', $type->id))->attribute('id', 'frmProduction')->open() }}
-                            <input type="hidden" name="sub_type" value="{{ $stype }}" />
+                            {{ html()->form('POST', route('production.save', ['type' => encrypt($type->id), 'stype' => 0]))->attribute('id', 'frmProduction')->open() }}
                             <div class="row">
                                 <div class="mb-3 col-md-2">
                                     <label class="form-label req">Production Date</label>
@@ -59,7 +58,7 @@
                                 </div>
                                 <div class="mb-3 col-md-2">
                                     <label class="form-label req">Qty</label>
-                                    {{ html()->text('qty[]', old('qty'))->class("form-control")->placeholder("0") }}
+                                    {{ html()->text('qty[]', 0)->class("form-control")->placeholder("0") }}
                                     @error('qty')
                                     <small class="text-danger">{{ $errors->first('qty') }}</small>
                                     @enderror

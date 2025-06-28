@@ -83,10 +83,10 @@ Route::middleware(['web', 'auth', 'branch'])->group(function () {
     Route::prefix('production')->controller(ProductionController::class)->group(function () {
         Route::get('/{type}/{stype}', 'index')->name('production.register');
         Route::get('create/{type}/{stype}', 'create')->name('production.create');
-        Route::post('create/{type}', 'store')->name('production.save');
-        Route::get('edit/{id}', 'edit')->name('production.edit');
-        Route::post('edit/{id}', 'update')->name('production.update');
-        Route::get('delete/{id}', 'destroy')->name('production.delete');
+        Route::post('create/{type}/{stype}', 'store')->name('production.save');
+        Route::get('edit/{type}/{id}/{stype}', 'edit')->name('production.edit');
+        Route::post('edit/{id}/{type}/{stype}', 'update')->name('production.update');
+        Route::get('delete/{id}/{type}/{stype}', 'destroy')->name('production.delete');
         Route::get('restore/{id}', 'restore')->name('production.restore');
     });
 

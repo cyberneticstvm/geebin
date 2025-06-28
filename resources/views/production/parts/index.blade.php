@@ -40,8 +40,8 @@
                                         <td></td>
                                         <td><a href="javascript:void(0)" class="viewProductionDetailsBox text-info" data-pid="{{ encrypt($prod->id) }}" data-bno="{{ $prod->batchNumber() }}">View</a></td>
                                         <td>{!! $prod->status() !!}</td>
-                                        <td><span class="badge badge-lg light badge-warning"><a href="{{ route('production.edit', encrypt($prod->id)) }}" class="text-warning">Edit</a></span></td>
-                                        <td><span class="badge badge-lg light badge-danger"><a href="{{ route('production.delete', encrypt($prod->id)) }}" class="text-danger dlt">Delete</a></span></td>
+                                        <td><span class="badge badge-lg light badge-warning"><a href="{{ route('production.edit', ['type' => encrypt(14), 'id' => encrypt($prod->id), 'stype' => $prod->sub_type]) }}" class="text-warning">Edit</a></span></td>
+                                        <td><span class="badge badge-lg light badge-danger"><a href="{{ route('production.delete', ['id' => encrypt($prod->id), 'type' => encrypt(14), 'stype' => 0]) }}" class="text-danger dlt">Delete</a></span></td>
                                     </tr>
                                     @empty
                                     @endforelse

@@ -165,7 +165,7 @@
 <script>
     function validateForm(form) {
         let frm = document.forms[form];
-        if (form == 'frmPurchase' || form == 'frmProduction') {
+        if (form == 'frmPurchase') {
             let item = frm['item_ids[]'].value
             if (!item) {
                 failed({
