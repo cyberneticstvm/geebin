@@ -31,6 +31,7 @@ Route::middleware(['web', 'auth', 'branch'])->group(function () {
         Route::get('item', 'items')->name('item.register');
         Route::post('production/material/save', 'saveProductionMaterial')->name('production.material.save');
         Route::post('production/parts/save', 'saveProductionParts')->name('production.parts.save');
+        Route::post('production/decom/save', 'saveProductionDecom')->name('production.decom.save');
     });
     Route::prefix('')->controller(AuthController::class)->group(function () {
         Route::get('logout', 'logout')->name('logout');

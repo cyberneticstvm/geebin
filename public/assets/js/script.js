@@ -83,8 +83,15 @@ $(function(){
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR)
             }
-        });   
-             
+        });       
     }); 
+
+    $(document).on("click", ".viewDecomBox", function(){
+        let bNumber = $(this).data('bno');
+        let pid = $(this).data('pid');
+        $(".bNumber").text(bNumber)
+        $(".pid").val(pid);
+        $('#decomBox').addClass('active');       
+    });
 
 });

@@ -38,8 +38,10 @@ class ProductionController extends Controller implements HasMiddleware
             $this->entities = Entity::whereIn('type_id', [2, 3])->get();
             if ($stype == 1):
                 $this->items = Item::whereIn('id', [5, 6])->get();
-            else:
+            elseif ($stype == 2):
                 $this->items = Item::whereIn('id', [7, 8])->get();
+            else:
+                $this->items = Item::whereIn('type', [20])->get();
             endif;
             $this->create = "production.decom.create";
             $this->edit = "production.decom.edit";

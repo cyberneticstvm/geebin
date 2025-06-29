@@ -28,6 +28,7 @@
                                 <thead>
                                     <tr>
                                         <th>SL No</th>
+                                        <th>Batch Number</th>
                                         <th>From Facility</th>
                                         <th>To Facility</th>
                                         <th>Type</th>
@@ -40,9 +41,10 @@
                                     @forelse($productions as $key => $prod)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
+                                        <td><a href="javascript:void(0)" class="viewDecomBox text-info" data-pid="{{ encrypt($prod->id) }}" data-bno="{{ $prod->batchNumber() }}">{{ $prod->batchNumber() }}</a></td>
                                         <td>{{ $prod->fromEntity->name }}</td>
                                         <td>{{ $prod->toEntity->name }}</td>
-                                        <td>{{ $prod->sub_type }}</td>
+                                        <td>{{ ($prod->sub_type == 1) ? 'Powder' : 'Liquid' }}</td>
                                         <td>{!! $prod->status() !!}</td>
                                         <td><span class="badge badge-lg light badge-warning"><a href="{{ route('production.edit', ['type' => encrypt(20), 'id' => encrypt($prod->id), 'stype' => $prod->sub_type]) }}" class="text-warning">Edit</a></span></td>
                                         <td><span class="badge badge-lg light badge-danger"><a href="{{ route('production.delete', ['id' => encrypt($prod->id), 'type' => encrypt(20), 'stype' => $prod->sub_type]) }}" class="text-danger dlt">Delete</a></span></td>
@@ -58,3 +60,45 @@
         </div>
     </div>
 </div>
+<!--**********************************
+            Chat box start
+        ***********************************-->
+<div class="chatbox" id="decomBox">
+    <div class="chatbox-close"></div>
+    <div class="card mb-sm-3 mb-md-0 contacts_card dz-chat-user-box">
+        <div class="card-header chat-list-header text-center">
+            <h5><span class="bNumber"></span></h5>
+        </div>
+        <div class="card-body contacts_body p-0 dz-scroll decomBox" id="DZ_W_Contacts_Body">
+            <div class="basic-form">
+                <h5 class="ms-3 mt-3">Update Production (Decom)</h5>
+                {{ html()->form('POST', route('production.decom.save'))->open() }}
+                <input type="hidden" name="pid" class="pid" value="" />
+                <div class="row ms-1 mt-3">
+                    @forelse($items as $key => $part)
+                    <div class="col-md-4">
+                        <label class="form-label">{{ $part->name }}</label>
+                        {{ html()->number(str_replace(' ', '_', $part->name), 0, 0, '', 1)->class('form-control'); }}
+                        @error($part->name)
+                        <small class="text-danger">{{ $errors->first($part->name) }}</small>
+                        @enderror
+                    </div>
+                    @empty
+                    @endforelse
+                </div>
+                <div class="row ms-1 mt-1">
+                    <div class="col-md-12 text-end">
+                        {{ html()->submit("Update")->class("btn btn-submit btn-outline-primary") }}
+                    </div>
+                </div>
+                {{ html()->form()->close() }}
+            </div>
+        </div>
+        <div class="card-footer">
+            <h5><span class="bNumber"></span></h5>
+        </div>
+    </div>
+</div>
+<!--**********************************
+            Chat box End
+        ***********************************-->
