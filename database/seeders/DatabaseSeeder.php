@@ -83,30 +83,30 @@ class DatabaseSeeder extends Seeder
             'updated_by' => $user->id,
         ]);
 
-        Extra::create(['id' => 1, 'key' => 'entity', 'value' => 'Supplier']);
-        Extra::create(['id' => 2, 'key' => 'entity', 'value' => 'Master Stock']);
-        Extra::create(['id' => 3, 'key' => 'entity', 'value' => 'Production Unit']);
-        Extra::create(['id' => 4, 'key' => 'entity', 'value' => 'Assembling Unit']);
-        Extra::create(['id' => 5, 'key' => 'entity', 'value' => 'Warehouse']);
-        Extra::create(['id' => 6, 'key' => 'entity', 'value' => 'Franchise']);
-        Extra::create(['id' => 7, 'key' => 'bstatus', 'value' => 'Open']);
-        Extra::create(['id' => 8, 'key' => 'bstatus', 'value' => 'Closed']);
-        Extra::create(['id' => 9, 'key' => 'unit', 'value' => 'Number']);
-        Extra::create(['id' => 10, 'key' => 'unit', 'value' => 'Kilo']);
-        Extra::create(['id' => 11, 'key' => 'unit', 'value' => 'Litre']);
-        Extra::create(['id' => 12, 'key' => 'itype', 'value' => 'Material']);
-        Extra::create(['id' => 13, 'key' => 'itype', 'value' => 'Color']);
-        Extra::create(['id' => 14, 'key' => 'itype', 'value' => 'Parts']);
-        Extra::create(['id' => 15, 'key' => 'itype', 'value' => 'Bin']);
-        Extra::create(['id' => 16, 'key' => 'itype', 'value' => 'Bag']);
-        Extra::create(['id' => 17, 'key' => 'itype', 'value' => 'Powder']);
-        Extra::create(['id' => 18, 'key' => 'itype', 'value' => 'Liquid']);
-        Extra::create(['id' => 19, 'key' => 'itype', 'value' => 'CocoPeat']);
-        Extra::create(['id' => 20, 'key' => 'itype', 'value' => 'Decom']);
-        Extra::create(['id' => 21, 'key' => 'entity', 'value' => 'LSGs']);
-        Extra::create(['id' => 22, 'key' => 'tstatus', 'value' => 'Pending']);
-        Extra::create(['id' => 23, 'key' => 'tstatus', 'value' => 'Approved']);
-        Extra::create(['id' => 24, 'key' => 'tstatus', 'value' => 'Rejected']);
-        Extra::create(['id' => 25, 'key' => 'itype', 'value' => 'Scrap']);
+        Extra::insert(['id' => 1, 'key' => 'entity', 'value' => 'Supplier']);
+        Extra::insert(['id' => 2, 'key' => 'entity', 'value' => 'Master Stock']);
+        Extra::insert(['id' => 3, 'key' => 'entity', 'value' => 'Production Unit']);
+        Extra::insert(['id' => 4, 'key' => 'entity', 'value' => 'Assembling Unit']);
+        Extra::insert(['id' => 5, 'key' => 'entity', 'value' => 'Warehouse']);
+        Extra::insert(['id' => 6, 'key' => 'entity', 'value' => 'Franchise']);
+        Extra::insert(['id' => 7, 'key' => 'bstatus', 'value' => 'Open']);
+        Extra::insert(['id' => 8, 'key' => 'bstatus', 'value' => 'Closed']);
+        Extra::insert(['id' => 9, 'key' => 'unit', 'value' => 'Number']);
+        Extra::insert(['id' => 10, 'key' => 'unit', 'value' => 'Kilo']);
+        Extra::insert(['id' => 11, 'key' => 'unit', 'value' => 'Litre']);
+        Extra::insert(['id' => 12, 'key' => 'itype', 'value' => 'Material']);
+        Extra::insert(['id' => 13, 'key' => 'itype', 'value' => 'Color']);
+        Extra::insert(['id' => 14, 'key' => 'itype', 'value' => 'Parts']);
+        Extra::insert(['id' => 15, 'key' => 'itype', 'value' => 'Bin']);
+        Extra::insert(['id' => 16, 'key' => 'itype', 'value' => 'Bag']);
+        Extra::insert(['id' => 17, 'key' => 'itype', 'value' => 'Powder']);
+        Extra::insert(['id' => 18, 'key' => 'itype', 'value' => 'Liquid']);
+        Extra::insert(['id' => 19, 'key' => 'itype', 'value' => 'CocoPeat']);
+        Extra::insert(['id' => 20, 'key' => 'itype', 'value' => 'Decom']);
+        Extra::insert(['id' => 21, 'key' => 'entity', 'value' => 'LSGs']);
+        Extra::insert(['id' => 22, 'key' => 'tstatus', 'value' => 'Pending']);
+        Extra::insert(['id' => 23, 'key' => 'tstatus', 'value' => 'Approved']);
+        Extra::insert(['id' => 24, 'key' => 'tstatus', 'value' => 'Rejected']);
+        Extra::insert(['id' => 25, 'key' => 'itype', 'value' => 'Scrap']);
     }
 }
